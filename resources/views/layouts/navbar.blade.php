@@ -93,6 +93,38 @@
 
 
                 </li>
+
+                <li>
+
+                    <a href="javascript:void(0)"><i class="fa fa-file-excel-o"></i> &nbsp;<span
+                            class="title"> {{trans('site_lang.side_ControlPanel')}} </span><i
+                            class="icon-arrow"></i> </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="{{url('/dailyReport')}}">
+                                <i class="fa fa-hacker-news"></i>&nbsp;<span
+                                    class="title">{{trans('site_lang.side_Packages')}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/MonthlyReport') }}">
+                                <i class="fa fa-file-movie-o"></i>&nbsp;<span
+                                    class="title">{{trans('site_lang.side_packageClient')}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/MonthlyReport') }}">
+                                <i class="fa fa-file-movie-o"></i>&nbsp;<span
+                                    class="title">{{trans('site_lang.side_ClientReservation')}}</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+                </li>
+
+
                 <li>
                     <a href="{{ route('logout') }}" type='submit' class="btn btn-sm log-out text-right"
 
