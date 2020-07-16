@@ -13,9 +13,9 @@ if (!function_exists('getQuery')) {
     function getQuery()
     {
         if (auth()->user()->parent_id != null) {
-            return 'parent_id'.'='.auth()->user()->parent_id;
+            return auth()->user()->parent_id;
         } else {
-            return 'parent_id'.'='.auth()->user()->id;
+            return auth()->user()->id;
         }
     }
 }

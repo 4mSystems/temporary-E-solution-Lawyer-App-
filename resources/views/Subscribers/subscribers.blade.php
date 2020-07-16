@@ -89,7 +89,7 @@
                                     <div class="form-group{{$errors->has('name')?' has-error':''}}">
                                         <input type="text" name="name" class="form-control" id="name" required
                                                placeholder="{{trans('site_lang.users_username')}}"
-                                               >
+                                        >
                                         <span class="text-danger" id="name_error"></span>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                         <input name="email" id="email" placeholder="{{trans('site_lang.users_email')}}"
                                                required
                                                class="form-control"
-                                               />
+                                        />
                                         <span class="text-danger" id="email_error"></span>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                         <input type="password" name="password" id="password" class="form-control"
                                                required
                                                placeholder="{{trans('site_lang.auth_password')}}"
-                                               >
+                                        >
                                         <span class="text-danger" id="password_error"></span>
                                     </div>
                                 </div>
@@ -119,7 +119,7 @@
                                         <input type="text" name="phone" id="phone"
                                                class="form-control"
                                                placeholder="{{trans('site_lang.subPhone')}}"
-                                               >
+                                        >
                                         <span class="text-danger" id="phone_error"></span>
                                     </div>
                                 </div>
@@ -127,8 +127,22 @@
                                     <div class="form-group{{$errors->has('address')?' has-error':''}}">
                                         <input type="text" name="address" id="address" class="form-control"
                                                placeholder="{{trans('site_lang.client_Address')}}"
-                                                rows="10">
+                                               rows="10">
                                         <span class="text-danger" id="address_error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group{{$errors->has('cat_id')?' has-error':''}}">
+                                        <select id="form-field-select-3" class="form-control select2-arrow"
+                                                name="package_id">
+                                            <option value="">
+                                                &nbsp;{{trans('site_lang.side_Packages')}}</option>
+                                            @foreach($packages as $package)
+                                                <option
+                                                    value='{{$package->id}}'>{{$package->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <span class="text-danger" id="package_id_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -260,6 +274,7 @@
                             $('#password_error').empty();
                             $('#email_error').empty();
                             $('#name_error').empty();
+                            $('#package_id_error').empty();
                         },
                         success: function (data) {
                             $('#add_subscriber_model').modal('hide');
@@ -274,6 +289,7 @@
                                 $('#password_error').html(data_error.responseJSON.errors.password);
                                 $('#email_error').html(data_error.responseJSON.errors.email);
                                 $('#name_error').html(data_error.responseJSON.errors.name);
+                                $('#package_id_error').html(data_error.responseJSON.errors.package_id);
                             }
                         }
                     });
@@ -354,7 +370,21 @@
                     }
                 })
             });
-
+            $(document).on('click', '#change-user-status', function () {
+                var id = $(this).data('user-id');
+                $.ajax({
+                    url: "subscribers/updateStatus/" + id,
+                    dataType: "json",
+                    success: function (html) {
+                        $('#subscribers_tbl').DataTable().ajax.reload();
+                        if (html.status) {
+                            toastr.success(html.msg);
+                        } else {
+                            toastr.error(html.msg);
+                        }
+                    }
+                })
+            });
 
             $(document).on('click', '#deleteClient', function () {
                 client_id = $(this).data('client-id');

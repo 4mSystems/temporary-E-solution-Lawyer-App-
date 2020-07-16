@@ -136,6 +136,7 @@ Route::get('profile/client_cases/{id}', 'ClientProfileController@client_cases');
     Route::post('packages/update', 'PackagesController@update')->name('packages.update');
 
     Route::resource('subscribers', 'SubscribersController');
+    Route::get('subscribers/updateStatus/{id}', 'SubscribersController@updateStatus');
 
 }
 

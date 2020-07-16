@@ -15,7 +15,7 @@
                 <div class="toolbar row">
                     <div class="col-sm-12 hidden-xs">
                         <div class="page-header">
-                            <h3 class="text-bold"><?php echo e(trans('site_lang.side_clients')); ?> </h3>
+                            <h3 class="text-bold"><?php echo e(trans('site_lang.side_Packages')); ?> </h3>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                                 </a>
                             </li>
                             <li class="active">
-                                <?php echo e(trans('site_lang.side_clients')); ?>
+                                <?php echo e(trans('site_lang.side_Packages')); ?>
 
                             </li>
                         </ol>
@@ -45,22 +45,20 @@
                         <div class="panel panel-white">
                             <div class="panel-heading">
 
-                                <a class="btn btn-primary" id="addSubscribersModal"><i
+                                <a class="btn btn-primary" id="addClientModal"><i
 
-                                        class="fa fa-plus"></i><?php echo e(trans('site_lang.clients_add_new_client_text')); ?> </a>
+                                        class="fa fa-plus"></i><?php echo e(trans('site_lang.Add_package')); ?> </a>
                             </div>
                             <div class="panel-body">
 
                                 <table class="table table-striped table-bordered table-hover table-full-width"
-                                       id="subscribers_tbl">
+                                       id="package_tbl">
                                     <thead>
                                     <tr>
                                         <th class="center">#</th>
-                                        <th class="center"><?php echo e(trans('site_lang.subName')); ?></th>
-                                        <th class="center"><?php echo e(trans('site_lang.subEmail')); ?></th>
-                                        <th class="center"><?php echo e(trans('site_lang.subPhone')); ?></th>
-                                        <th class="center"><?php echo e(trans('site_lang.subAddress')); ?></th>
-                                        <th class="center"><?php echo e(trans('site_lang.subStatus')); ?></th>
+                                        <th class="center"><?php echo e(trans('site_lang.packae_name')); ?></th>
+                                        <th class="center"><?php echo e(trans('site_lang.package_cost')); ?></th>
+                                        <th class="center"><?php echo e(trans('site_lang.package_duration')); ?></th>
                                         <th class="center"></th>
                                     </tr>
                                     </thead>
@@ -74,7 +72,7 @@
             </div>
         </div>
         <!-- end: PAGE -->
-        <div id="add_subscriber_model" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+        <div id="add_package_model" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
              class="modal bs-example-modal-basic fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -82,79 +80,40 @@
                         <h4 class="modal-title" id="modal_title"></h4>
                     </div>
                     <div class="modal-body">
-                        <form method="post" id="subscribers">
+                        <form method="post" id="packages" enctype="multipart/form-data">
                             <input type="hidden" id="token" name="_token" value="<?php echo e(csrf_token()); ?>">
                             <input type="hidden" name="id" id="id">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group<?php echo e($errors->has('name')?' has-error':''); ?>">
-                                        <input type="text" name="name" class="form-control" id="name" required
-                                               placeholder="<?php echo e(trans('site_lang.users_username')); ?>"
-                                        >
-                                        <span class="text-danger" id="name_error"></span>
+                                        <input type="text" name="name" class="form-control" id="name"
+                                               placeholder="<?php echo e(trans('site_lang.packae_name')); ?>"
+                                               value="<?php echo e(old('name')); ?>">
+                                        <span class="text-danger" id="package_Name_error"></span>
                                     </div>
                                 </div>
-
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('email')?' has-error':''); ?>">
-                                        <input name="email" id="email" placeholder="<?php echo e(trans('site_lang.users_email')); ?>"
-                                               required
+                                    <div class="form-group<?php echo e($errors->has('cost')?' has-error':''); ?>">
+
+                                        <input name="cost" id="cost"
+                                               placeholder="<?php echo e(trans('site_lang.package_cost')); ?>"
                                                class="form-control"
-                                        />
-                                        <span class="text-danger" id="email_error"></span>
+                                               value="<?php echo e(old('cost')); ?>"/>
+                                        <span class="text-danger" id="package_cost_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('password')?' has-error':''); ?>">
-                                        <input type="password" name="password" id="password" class="form-control"
-                                               required
-                                               placeholder="<?php echo e(trans('site_lang.auth_password')); ?>"
-                                        >
-                                        <span class="text-danger" id="password_error"></span>
-                                    </div>
-                                </div>
+                                    <div class="form-group<?php echo e($errors->has('duration')?' has-error':''); ?>">
 
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('phone')?' has-error':''); ?>">
-
-                                        <input type="text" name="phone" id="phone"
+                                        <input type="text" name="duration" id="duration"
                                                class="form-control"
-                                               placeholder="<?php echo e(trans('site_lang.subPhone')); ?>"
-                                        >
-                                        <span class="text-danger" id="phone_error"></span>
+                                               placeholder="<?php echo e(trans('site_lang.package_duration')); ?>"
+                                               value="<?php echo e(old('duration')); ?>">
+                                        <span class="text-danger" id="package_duration_error"></span>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('address')?' has-error':''); ?>">
-                                        <input type="text" name="address" id="address" class="form-control"
-                                               placeholder="<?php echo e(trans('site_lang.client_Address')); ?>"
-                                               rows="10">
-                                        <span class="text-danger" id="address_error"></span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('cat_id')?' has-error':''); ?>">
-                                        <select id="form-field-select-3" class="form-control select2-arrow"
-                                                name="package_id">
-                                            <option value="">
-                                                &nbsp;<?php echo e(trans('site_lang.side_Packages')); ?></option>
-                                            <?php $__currentLoopData = $packages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $package): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <option
-                                                    value='<?php echo e($package->id); ?>'><?php echo e($package->name); ?></option>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        </select>
-                                        <span class="text-danger" id="package_id_error"></span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('password')?' has-error':''); ?>">
-                                        <input type="text" name="cat_name" id="cat_name" class="form-control"
-                                               required
-                                               placeholder="<?php echo e(trans('site_lang.subCatname')); ?>"
-                                        >
-                                        <span class="text-danger" id="cat_name_error"></span>
-                                    </div>
-                                </div>
+
+
 
                             </div>
                             <div class="form-group right">
@@ -167,6 +126,7 @@
                                        value="<?php echo e(trans('site_lang.public_add_btn_text')); ?>"/>
                             </div>
                         </form>
+
                     </div>
 
                 </div>
@@ -205,11 +165,11 @@
             }
         });
         $(document).ready(function () {
-            $('#subscribers_tbl').DataTable({
+            $('#package_tbl').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "<?php echo e(url('subscribers')); ?>",
+                    url: "<?php echo e(route('packages.index')); ?>",
                 },
                 columns: [
                     {
@@ -221,27 +181,14 @@
                         data: 'name',
                         name: 'name',
                         className: 'center'
-
                     }, {
-                        data: 'email',
-                        name: 'email',
+                        data: 'cost',
+                        name: 'cost',
                         className: 'center'
-
                     }, {
-                        data: 'phone',
-                        name: 'phone',
+                        data: 'duration',
+                        name: 'duration',
                         className: 'center'
-
-                    }, {
-                        data: 'address',
-                        name: 'address',
-                        className: 'center'
-
-                    }, {
-                        data: 'status',
-                        name: 'status',
-                        className: 'center'
-
                     },
 
                     {
@@ -253,16 +200,16 @@
                 ]
             });
 
-            $('#addSubscribersModal').click(function () {
-                $('#modal_title').text("<?php echo e(trans('site_lang.clients_add_new_client_text')); ?>");
+            $('#addClientModal').click(function () {
+                $('#modal_title').text("<?php echo e(trans('site_lang.Add_new_package')); ?>");
                 $('#add_client').val("<?php echo e(trans('site_lang.public_add_btn_text')); ?>");
-                $('#add_subscriber_model').modal('show');
+                $('#add_package_model').modal('show');
             });
-            $('#subscribers').on('submit', function (event) {
+            $('#packages').on('submit', function (event) {
                 event.preventDefault();
                 if ($('#add_client').val() == '<?php echo e(trans('site_lang.public_add_btn_text')); ?>') {
                     $.ajax({
-                        url: "<?php echo e(route('subscribers.store')); ?>",
+                        url: "<?php echo e(route('packages.store')); ?>",
                         method: 'post',
                         data: new FormData(this),
                         contentType: false,
@@ -270,34 +217,28 @@
                         processData: false,
                         dataType: "json",
                         beforeSend: function () {
-                            $('#cat_name_error').empty();
-                            $('#address_error').empty();
-                            $('#phone_error').empty();
-                            $('#password_error').empty();
-                            $('#email_error').empty();
-                            $('#name_error').empty();
-                            $('#package_id_error').empty();
+                            $('#package_Name_error').empty();
+                            $('#packae_cost_error').empty();
+                            $('#package_duration_error').empty();
+
                         },
                         success: function (data) {
-                            $('#add_subscriber_model').modal('hide');
+                            $('#add_package_model').modal('hide');
                             toastr.success(data.success);
-                            $("#subscribers").trigger('reset');
-                            $('#subscribers_tbl').DataTable().ajax.reload();
+                            $("#packages").trigger('reset');
+                            $('#package_tbl').DataTable().ajax.reload();
                         }, error: function (data_error, exception) {
                             if (exception == 'error') {
-                                $('#cat_name_error').html(data_error.responseJSON.errors.cat_name);
-                                $('#address_error').html(data_error.responseJSON.errors.address);
-                                $('#phone_error').html(data_error.responseJSON.errors.phone);
-                                $('#password_error').html(data_error.responseJSON.errors.password);
-                                $('#email_error').html(data_error.responseJSON.errors.email);
-                                $('#name_error').html(data_error.responseJSON.errors.name);
-                                $('#package_id_error').html(data_error.responseJSON.errors.package_id);
+                                $('#package_Name_error').html(data_error.responseJSON.errors.name);
+                                $('#packae_cost_error').html(data_error.responseJSON.errors.cost);
+                                $('#package_duration_error').html(data_error.responseJSON.errors.duration);
+
                             }
                         }
                     });
                 } else {
                     $.ajax({
-                        url: "<?php echo e(route('clients.update')); ?>",
+                        url: "<?php echo e(route('packages.update')); ?>",
                         method: "POST",
                         data: new FormData(this),
                         contentType: false,
@@ -305,45 +246,40 @@
                         processData: false,
                         dataType: "json",
                         beforeSend: function () {
-                            $('#client_Name_error').empty();
-                            $('#client_Unit_error').empty();
-                            $('#client_Address_error').empty();
-                            $('#notes_error').empty();
-                            $('#type_error').empty();
+                            $('#package_Name_error').empty();
+                            $('#packae_cost_error').empty();
+                            $('#package_duration_error').empty();
                         }, success: function (data) {
-                            $('#add_subscriber_model').modal('hide');
+                            $('#add_package_model').modal('hide');
                             toastr.success(data.success);
-                            $("#subscribers").trigger('reset');
-                            $('#subscribers_tbl').DataTable().ajax.reload();
+                            $("#packages").trigger('reset');
+                            $('#package_tbl').DataTable().ajax.reload();
                         }, error: function (data_error, exception) {
                             if (exception == 'error') {
-                                $('#client_Name_error').html(data_error.responseJSON.errors.client_Name);
-                                $('#client_Unit_error').html(data_error.responseJSON.errors.client_Unit);
-                                $('#client_Address_error').html(data_error.responseJSON.errors.client_Address);
-                                $('#notes_error').html(data_error.responseJSON.errors.notes);
-                                $('#type_error').html(data_error.responseJSON.errors.type);
-                                $('#To_error').html(data_error.responseJSON.errors.cat_id);
+                                $('#package_Name_error').html(data_error.responseJSON.errors.name);
+                                $('#packae_cost_error').html(data_error.responseJSON.errors.cost);
+                                $('#package_duration_error').html(data_error.responseJSON.errors.duration);
                             }
                         }
                     });
                 }
             });
 
-            $(document).on('click', '#editClient', function () {
-                var id = $(this).data('client-id');
+            $(document).on('click', '#editPackage', function () {
+                var id = $(this).data('package-id');
+
                 $.ajax({
-                    url: "/subscribers/" + id + "/edit",
+                    url: "/packages/" + id + "/edit",
                     dataType: "json",
                     success: function (html) {
+                        $('#add_package_model').modal('show');
                         $('#name').val(html.data.name);
-                        $('#email').val(html.data.email);
-                        $('#phone').val(html.data.phone);
-                        $('#address').val(html.data.address);
-
+                        $('#cost').val(html.data.cost);
+                        $('#duration').val(html.data.duration);
                         $('#id').val(html.data.id);
-                        $('#modal_title').text("<?php echo e(trans('site_lang.clients_edit_client_text')); ?>");
+                        $('#modal_title').text("<?php echo e(trans('site_lang.package_edit_client_text')); ?>");
                         $('#add_client').val("<?php echo e(trans('site_lang.public_edit_btn_text')); ?>");
-                        $('#add_subscriber_model').modal('show');
+
 
                     }
                 })
@@ -372,43 +308,29 @@
                     }
                 })
             });
-            $(document).on('click', '#change-user-status', function () {
-                var id = $(this).data('user-id');
-                $.ajax({
-                    url: "subscribers/updateStatus/" + id,
-                    dataType: "json",
-                    success: function (html) {
-                        $('#subscribers_tbl').DataTable().ajax.reload();
-                        if (html.status) {
-                            toastr.success(html.msg);
-                        } else {
-                            toastr.error(html.msg);
-                        }
-                    }
-                })
-            });
 
-            $(document).on('click', '#deleteClient', function () {
-                client_id = $(this).data('client-id');
+
+            $(document).on('click', '#deletePackage', function () {
+                Package_id = $(this).data('package-id');
                 $('#confirmModal').modal('show');
             });
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "clients/destroy/" + client_id,
+                    url: "packages/destroy/" + Package_id,
                     beforeSend: function () {
                         $('#ok_button').text('<?php echo e(trans('site_lang.public_continue_delete_modal_text')); ?>');
                     },
                     success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
-                            $('#subscribers_tbl').DataTable().ajax.reload();
+                            $('#package_tbl').DataTable().ajax.reload();
                         }, 100);
                     }
                 })
             });
             $(document).ready(function () {
                 $(".modal").on("hidden.bs.modal", function () {
-                    $("#subscribers").trigger('reset');
+                    $("#packages").trigger('reset');
                 });
             });
         });
@@ -430,4 +352,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('welcome', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\temporary-E-solution-Lawyer-App-\resources\views/Subscribers/subscribers.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('welcome', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\temporary-E-solution-Lawyer-App\resources\views/packages/package.blade.php ENDPATH**/ ?>

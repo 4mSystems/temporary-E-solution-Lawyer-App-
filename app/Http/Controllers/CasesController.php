@@ -24,9 +24,9 @@ class CasesController extends Controller
         $permission = Permission::where('user_id', $user_id)->first();
         $enabled = $permission->addcases;
         if ($enabled == 'yes') {
-            $clients = Clients::select('id', 'client_Name')->where('type', 'client')->get();
-            $khesm = Clients::select('id', 'client_Name')->where('type', 'khesm')->get();
-            $categories = category::select('id', 'name')->get();
+            $clients = Clients::select('id', 'client_Name')->where('type', 'client')->where('parent_id', getQuery())->get();
+            $khesm = Clients::select('id', 'client_Name')->where('type', 'khesm')->where('parent_id', '=', getQuery())->get();
+            $categories = category::select('id', 'name')->where('parent_id', '=', getQuery())->get();
 
             return view('cases.add_case', compact(['clients', 'khesm', 'categories']));
         } else {
@@ -82,10 +82,13 @@ class CasesController extends Controller
                 $data['to_whome'] = $request->to_whome;
 
             }
+
+
             if ($request->mokel_name != null && $request->khesm_name != null) {
                 $month = date('m', strtotime($request->first_session_date));
                 $year = date('yy', strtotime($request->first_session_date));
 //            // saving case data
+                $data['parent_id']=getQuery();
                 $case = Cases::create($data);
                 $case['month'] = $month;
                 $case['year'] = $year;
@@ -96,6 +99,7 @@ class CasesController extends Controller
                 $sessions->case_Id = $case->id;
                 $sessions->month = $month;
                 $sessions->year = $year;
+                $sessions->parent_id = getQuery();
                 $sessions->save();
                 // saving case clients data
 

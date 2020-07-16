@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->bigInteger('cat_id')->unsigned();
             $table->foreign('cat_id')->references('id')->on('categories');
+            $table->bigInteger('package_id')->unsigned();
+            $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
             $table->bigInteger('parent_id')->nullable();
             $table->string('password');
             $table->string('name');
@@ -26,8 +28,6 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->string('type');
             $table->enum('status',['Active','Deactive','Demo'])->default('Active');
-            $table->bigInteger('package_id')->unsigned();
-            $table->foreign('package_id')->references('id')->on('packages');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Sessions;
 use Illuminate\Http\Request;
 use App\User;
 use App\category;
+use App\package;
 use App\Clients;
 
 class SubscribersController extends Controller
@@ -20,11 +22,14 @@ class SubscribersController extends Controller
 
             return datatables()->of(User::where('parent_id',null)->where('type','!=','manager')->get())
                 ->addColumn('status', function ($data) {
-                    if ($data->status == trans('site_lang.public_no_text')) {
-                        $html = '<p class="btn btn-sm" data-notes-Id="' . $data->id . '" id="change-note-status">
+                    if ($data->status == trans('site_lang.statusDeactive')) {
+                        $html = '<p class="btn btn-sm" data-user-id="' . $data->id . '" id="change-user-status">
                             <span class="label label-danger text-bold"> ' . $data->status . '</span></p>';
+                    }else if ($data->status == trans('site_lang.statusDemo'))  {
+                        $html = '<p class="btn btn-sm" data-user-Id="' . $data->id . '" id="change-user-status">
+                            <span class="label label-warning text-bold"> ' . $data->status . '</span></p>';
                     } else {
-                        $html = '<p class="btn btn-sm" data-notes-Id="' . $data->id . '" id="change-note-status">
+                        $html = '<p class="btn btn-sm" data-user-Id="' . $data->id . '" id="change-user-status">
                             <span class="label label-success text-bold"> ' . $data->status . '</span></p>';
                     }
 
@@ -37,10 +42,12 @@ class SubscribersController extends Controller
                                     class="fa fa-times fa fa-white"></i>&nbsp;&nbsp;' . trans('site_lang.public_delete_text') . '</button>';
                     return $button;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['status','action'])
                 ->make(true);
         }
-        return view('Subscribers.subscribers');
+
+        $packages = Package::all();
+        return view('Subscribers.subscribers',compact('packages'));
     }
 
     /**
@@ -52,11 +59,27 @@ class SubscribersController extends Controller
     {
         //
     }
+    // update session status from waiting to done
+    public function updateStatus($id)
+    {
+        $status = false;
+        $user = User::find($id);
+        if ($user->status == trans('site_lang.statusDemo')) {
+            $user->status = "Active";
+            $status = true;
+        } else if ($user->status== trans('site_lang.statusDeactive')){
+            $user->status = "Active";
+            $status = true;
+        }else{
+            $user->status = "Deactive";
+            $status = false;
+        }
+        $user->update();
+        return response(['msg' => trans('site_lang.public_success_text'), 'status' => $status]);
 
+    }
     public function store(Request $request)
     {
-
-
             $data = $this->validate(request(), [
                 'name' => 'required',
                 'email' => 'required',
@@ -64,6 +87,7 @@ class SubscribersController extends Controller
                 'phone' => 'required',
                 'address' => 'required',
                 'cat_name' => 'required',
+                'package_id' => 'required',
 
             ]);
 
@@ -74,6 +98,9 @@ class SubscribersController extends Controller
         $data['status'] ='Active';
         $data['type'] ='admin';
        $user_result= User::create($data);
+
+        $category->parent_id = $user_result->id;
+        $category->update();
 
         return response()->json(['success' => trans('site_lang.public_success_text')]);
     }

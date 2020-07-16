@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'type', 'password','email','cat_id','parent_id',
+        'name', 'type', 'password','email','cat_id','parent_id','phone','address','package_id','status'
     ];
 
     /**
@@ -36,4 +36,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getStatusAttribute($value)
+    {
+
+        if ($value == 'Demo') {
+            return trans('site_lang.statusDemo');
+        } else if ($value == 'Active'){
+            return trans('site_lang.statusActive');
+        }else{
+            return trans('site_lang.statusDeactive');
+        }
+    }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Sessions extends Model
 {
     protected $table = 'sessions';
-    protected $fillable = ['session_date', 'case_Id', 'month', 'year', 'status'];
+    protected $fillable = ['session_date', 'case_Id', 'month', 'year', 'status','parent_id'];
     protected $attributes = ['status' => 'No'];
 
     public function cases()
