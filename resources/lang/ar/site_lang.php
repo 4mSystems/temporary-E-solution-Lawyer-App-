@@ -147,6 +147,14 @@ return [
     'package_cost' => 'التكلفة',
     'package_duration' => 'المدة',
     'package_edit_client_text' => 'تعديل بيانات العرض',
+    //subscribers
+    'subName' => 'الاسم',
+    'subEmail' => 'البريد الالكترونى',
+    'subPhone' => 'رقم الهاتف',
+    'subStatus' => 'الحالة',
+    'subCatname' => 'اسم المؤسسة',
+
+
     //side_categories
     'side_categories' => 'التصنيفات',
     'category_name' => 'إسم التصنيف',

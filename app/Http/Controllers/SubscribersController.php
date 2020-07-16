@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\category;
 use App\Clients;
 
 class SubscribersController extends Controller
@@ -17,8 +18,18 @@ class SubscribersController extends Controller
     {
         if (request()->ajax()) {
 
-            return datatables()->of(User::where('parent_id',null)->get())
-                ->addColumn('action', function ($data) {
+            return datatables()->of(User::where('parent_id',null)->where('type','!=','manager')->get())
+                ->addColumn('status', function ($data) {
+                    if ($data->status == trans('site_lang.public_no_text')) {
+                        $html = '<p class="btn btn-sm" data-notes-Id="' . $data->id . '" id="change-note-status">
+                            <span class="label label-danger text-bold"> ' . $data->status . '</span></p>';
+                    } else {
+                        $html = '<p class="btn btn-sm" data-notes-Id="' . $data->id . '" id="change-note-status">
+                            <span class="label label-success text-bold"> ' . $data->status . '</span></p>';
+                    }
+
+                    return $html;
+                }) ->addColumn('action', function ($data) {
                     $button = '<button data-client-id="' . $data->id . '" id="editClient" class="btn btn-xs btn-blue tooltips" ><i
                                     class="fa fa-edit"></i>&nbsp;&nbsp;' . trans('site_lang.public_edit_btn_text') . '</button>';
                     $button .= '&nbsp;&nbsp;';
@@ -42,15 +53,29 @@ class SubscribersController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+
+
+            $data = $this->validate(request(), [
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'phone' => 'required',
+                'address' => 'required',
+                'cat_name' => 'required',
+
+            ]);
+
+        $Cat_data['name']=  $request->cat_name;
+        $category= category::create($Cat_data);
+
+        $data['cat_id'] =$category->id;
+        $data['status'] ='Active';
+        $data['type'] ='admin';
+       $user_result= User::create($data);
+
+        return response()->json(['success' => trans('site_lang.public_success_text')]);
     }
 
     /**

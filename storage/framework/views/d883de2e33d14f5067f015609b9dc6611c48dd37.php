@@ -1,3 +1,4 @@
+extends('welcome')
 <?php $__env->startSection('styles'); ?>
     <link href="<?php echo e(url('/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css')); ?>" rel="stylesheet"
           type="text/css"/>
@@ -45,22 +46,22 @@
                         <div class="panel panel-white">
                             <div class="panel-heading">
 
-                                <a class="btn btn-primary" id="addClientModal"><i
+                                <a class="btn btn-primary" id="addSubscribersModal"><i
 
                                         class="fa fa-plus"></i><?php echo e(trans('site_lang.clients_add_new_client_text')); ?> </a>
                             </div>
                             <div class="panel-body">
 
                                 <table class="table table-striped table-bordered table-hover table-full-width"
-                                       id="client_tbl">
+                                       id="subscribers_tbl">
                                     <thead>
                                     <tr>
                                         <th class="center">#</th>
-                                        <th class="center"><?php echo e(trans('site_lang.clients_client_name')); ?></th>
-                                        <th class="center"><?php echo e(trans('site_lang.clients_client_unit')); ?></th>
-                                        <th class="center"><?php echo e(trans('site_lang.clients_client_address')); ?></th>
-                                        <th class="center"><?php echo e(trans('site_lang.clients_client_notes')); ?></th>
-                                        <th class="center"><?php echo e(trans('site_lang.clients_client_type')); ?></th>
+                                        <th class="center"><?php echo e(trans('site_lang.subName')); ?></th>
+                                        <th class="center"><?php echo e(trans('site_lang.subEmail')); ?></th>
+                                        <th class="center"><?php echo e(trans('site_lang.subPhone')); ?></th>
+                                        <th class="center"><?php echo e(trans('site_lang.subAddress')); ?></th>
+                                        <th class="center"><?php echo e(trans('site_lang.subStatus')); ?></th>
                                         <th class="center"></th>
                                     </tr>
                                     </thead>
@@ -74,7 +75,7 @@
             </div>
         </div>
         <!-- end: PAGE -->
-        <div id="add_client_model" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+        <div id="add_subscriber_model" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
              class="modal bs-example-modal-basic fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -82,88 +83,47 @@
                         <h4 class="modal-title" id="modal_title"></h4>
                     </div>
                     <div class="modal-body">
-                        <form method="post" id="clients" enctype="multipart/form-data">
+                        <form method="post" id="subscribers">
                             <input type="hidden" id="token" name="_token" value="<?php echo e(csrf_token()); ?>">
                             <input type="hidden" name="id" id="id">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('client_Name')?' has-error':''); ?>">
-                                        <input type="text" name="client_Name" class="form-control" id="client_Name"
-                                               placeholder="<?php echo e(trans('site_lang.clients_client_name')); ?>"
-                                               value="<?php echo e(old('client_Name')); ?>">
+                                    <div class="form-group<?php echo e($errors->has('name')?' has-error':''); ?>">
+                                        <input type="text" name="name" class="form-control" id="name"
+                                               placeholder="<?php echo e(trans('site_lang.subname')); ?>"
+                                               value="<?php echo e(old('name')); ?>">
                                         <span class="text-danger" id="client_Name_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('client_Unit')?' has-error':''); ?>">
+                                    <div class="form-group<?php echo e($errors->has('email')?' has-error':''); ?>">
 
-                                        <input name="client_Unit" id="client_Unit"
-                                               placeholder="<?php echo e(trans('site_lang.clients_client_unit')); ?>"
+                                        <input name="email" id="email"
+                                               placeholder="<?php echo e(trans('site_lang.subemail')); ?>"
                                                class="form-control"
-                                               value="<?php echo e(old('client_Unit')); ?>"/>
+                                               value="<?php echo e(old('email')); ?>"/>
                                         <span class="text-danger" id="client_Unit_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('client_Address')?' has-error':''); ?>">
+                                    <div class="form-group<?php echo e($errors->has('phone')?' has-error':''); ?>">
 
-                                        <input type="text" name="client_Address" id="client_Address"
+                                        <input type="text" name="phone" id="phone"
                                                class="form-control"
-                                               placeholder="<?php echo e(trans('site_lang.clients_client_address')); ?>"
-                                               value="<?php echo e(old('client_Address')); ?>">
+                                               placeholder="<?php echo e(trans('site_lang.subphone')); ?>"
+                                               value="<?php echo e(old('phone')); ?>">
                                         <span class="text-danger" id="client_Address_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('notes')?' has-error':''); ?>">
-                                        <textarea type="text" name="notes" id="notes" class="form-control"
-                                                  placeholder="<?php echo e(trans('site_lang.clients_client_notes')); ?>"
-                                                  value="<?php echo e(old('notes')); ?>" rows="10"></textarea>
+                                    <div class="form-group<?php echo e($errors->has('address')?' has-error':''); ?>">
+                                        <input type="text" name="address" id="address" class="form-control"
+                                               placeholder="<?php echo e(trans('site_lang.subaddress')); ?>"
+                                               value="<?php echo e(old('address')); ?>" rows="10">
                                         <span class="text-danger" id="notes_error"></span>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('notes')?' has-error':''); ?>">
-                                        <select type="select" name="type" id="type" class="form-control"
 
-                                                value="<?php echo e(old('type')); ?>">
-
-
-                                            <option value="" selected
-                                                    data-default><?php echo e(trans('site_lang.clients_client_type')); ?>
-
-                                            </option>
-                                            <option
-                                                value="client"><?php echo e(trans('site_lang.clients_client_type_client')); ?></option>
-                                            <option
-                                                value="khesm"><?php echo e(trans('site_lang.clients_client_type_khesm')); ?></option>
-
-
-                                        </select>
-                                        <span class="text-danger" id="type_error"></span>
-                                    </div>
-                                </div>
-                                <?php
-                                    $user_type = auth()->user()->type;
-                                    if($user_type == 'admin'){
-                                ?>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group<?php echo e($errors->has('cat_id')?' has-error':''); ?>">
-                                        <select id="form-field-select-3" class="form-control select2-arrow"
-                                                name="cat_id">
-                                            <option value="">
-                                                &nbsp;<?php echo e(trans('site_lang.add_case_to_whom')); ?></option>
-                                            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <option
-                                                    value='<?php echo e($category->id); ?>'><?php echo e($category->name); ?></option>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        </select>
-                                        <span class="text-danger" id="To_error"></span>
-                                    </div>
-                                </div>
-                                <?php
-                                    }
-                                ?>
                             </div>
                             <div class="form-group right">
                                 <button data-dismiss="modal" class="btn btn-default" type="button">
@@ -175,7 +135,6 @@
                                        value="<?php echo e(trans('site_lang.public_add_btn_text')); ?>"/>
                             </div>
                         </form>
-
                     </div>
 
                 </div>
@@ -214,11 +173,11 @@
             }
         });
         $(document).ready(function () {
-            $('#client_tbl').DataTable({
+            $('#subscribers_tbl').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "<?php echo e(route('clients.index')); ?>",
+                    url: "<?php echo e(url('subscribers')); ?>",
                 },
                 columns: [
                     {
@@ -227,26 +186,30 @@
                         className: 'center'
                     },
                     {
-                        data: 'client_Name',
-                        name: 'client_Name',
+                        data: 'name',
+                        name: 'name',
                         className: 'center'
+
                     }, {
-                        data: 'client_Unit',
-                        name: 'client_Unit',
+                        data: 'email',
+                        name: 'email',
                         className: 'center'
+
                     }, {
-                        data: 'client_Address',
-                        name: 'client_Address',
+                        data: 'phone',
+                        name: 'phone',
                         className: 'center'
+
                     }, {
-                        data: 'notes',
-                        name: 'notes',
+                        data: 'address',
+                        name: 'address',
                         className: 'center'
+
                     }, {
-                        data: 'type',
-                        name: 'type',
-                        orderable: false,
+                        data: 'status',
+                        name: 'status',
                         className: 'center'
+
                     },
 
                     {
@@ -258,12 +221,12 @@
                 ]
             });
 
-            $('#addClientModal').click(function () {
+            $('#addSubscribersModal').click(function () {
                 $('#modal_title').text("<?php echo e(trans('site_lang.clients_add_new_client_text')); ?>");
                 $('#add_client').val("<?php echo e(trans('site_lang.public_add_btn_text')); ?>");
-                $('#add_client_model').modal('show');
+                $('#add_subscriber_model').modal('show');
             });
-            $('#clients').on('submit', function (event) {
+            $('#subscribers').on('submit', function (event) {
                 event.preventDefault();
                 if ($('#add_client').val() == '<?php echo e(trans('site_lang.public_add_btn_text')); ?>') {
                     $.ajax({
@@ -285,7 +248,7 @@
                             $('#add_client_model').modal('hide');
                             toastr.success(data.success);
                             $("#clients").trigger('reset');
-                            $('#client_tbl').DataTable().ajax.reload();
+                            $('#subscribers_tbl').DataTable().ajax.reload();
                         }, error: function (data_error, exception) {
                             if (exception == 'error') {
                                 $('#client_Name_error').html(data_error.responseJSON.errors.client_Name);
@@ -316,7 +279,7 @@
                             $('#add_client_model').modal('hide');
                             toastr.success(data.success);
                             $("#clients").trigger('reset');
-                            $('#client_tbl').DataTable().ajax.reload();
+                            $('#subscribers_tbl').DataTable().ajax.reload();
                         }, error: function (data_error, exception) {
                             if (exception == 'error') {
                                 $('#client_Name_error').html(data_error.responseJSON.errors.client_Name);
@@ -334,19 +297,14 @@
             $(document).on('click', '#editClient', function () {
                 var id = $(this).data('client-id');
                 $.ajax({
-                    url: "/clients/" + id + "/edit",
+                    url: "/subscribers/" + id + "/edit",
                     dataType: "json",
                     success: function (html) {
-                        $('#client_Name').val(html.data.client_Name);
-                        $('#client_Unit').val(html.data.client_Unit);
-                        $('#client_Address').val(html.data.client_Address);
-                        $('#notes').val(html.data.notes);
-                         $("#form-field-select-3").val(html.data.cat_id);
-                        if (html.data.type == '<?php echo e(trans('site_lang.clients_client_type_client')); ?>') {
-                            $('#type').val('client');
-                        } else {
-                            $('#type').val('khesm');
-                        }
+                        $('#name').val(html.data.name);
+                        $('#email').val(html.data.email);
+                        $('#phone').val(html.data.phone);
+                        $('#address').val(html.data.address);
+
                         $('#id').val(html.data.id);
                         $('#modal_title').text("<?php echo e(trans('site_lang.clients_edit_client_text')); ?>");
                         $('#add_client').val("<?php echo e(trans('site_lang.public_edit_btn_text')); ?>");
@@ -394,7 +352,7 @@
                     success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
-                            $('#client_tbl').DataTable().ajax.reload();
+                            $('#subscribers_tbl').DataTable().ajax.reload();
                         }, 100);
                     }
                 })
@@ -422,5 +380,4 @@
 
 <?php $__env->stopSection(); ?>
 
-
-<?php echo $__env->make('welcome', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\temporary-E-solution-Lawyer-App-\resources\views/clients/clients.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp\htdocs\temporary-E-solution-Lawyer-App-\resources\views/packages/subscribers.blade.php ENDPATH**/ ?>

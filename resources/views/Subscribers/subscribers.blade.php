@@ -51,14 +51,15 @@
                             <div class="panel-body">
 
                                 <table class="table table-striped table-bordered table-hover table-full-width"
-                                       id="client_tbl">
+                                       id="subscribers_tbl">
                                     <thead>
                                     <tr>
                                         <th class="center">#</th>
-                                        <th class="center">{{trans('site_lang.subname')}}</th>
-                                        <th class="center">{{trans('site_lang.subemail')}}</th>
-                                        <th class="center">{{trans('site_lang.subphone')}}</th>
-                                        <th class="center">{{trans('site_lang.subaddress')}}</th>
+                                        <th class="center">{{trans('site_lang.subName')}}</th>
+                                        <th class="center">{{trans('site_lang.subEmail')}}</th>
+                                        <th class="center">{{trans('site_lang.subPhone')}}</th>
+                                        <th class="center">{{trans('site_lang.subAddress')}}</th>
+                                        <th class="center">{{trans('site_lang.subStatus')}}</th>
                                         <th class="center"></th>
                                     </tr>
                                     </thead>
@@ -86,38 +87,57 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group{{$errors->has('name')?' has-error':''}}">
-                                        <input type="text" name="name" class="form-control" id="name"
-                                               placeholder="{{trans('site_lang.subname')}}"
-                                               value="{{ old('name') }}">
-                                        <span class="text-danger" id="client_Name_error"></span>
+                                        <input type="text" name="name" class="form-control" id="name" required
+                                               placeholder="{{trans('site_lang.users_username')}}"
+                                               >
+                                        <span class="text-danger" id="name_error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group{{$errors->has('email')?' has-error':''}}">
+                                        <input name="email" id="email" placeholder="{{trans('site_lang.users_email')}}"
+                                               required
+                                               class="form-control"
+                                               />
+                                        <span class="text-danger" id="email_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group{{$errors->has('email')?' has-error':''}}">
-
-                                        <input name="email" id="email"
-                                               placeholder="{{trans('site_lang.subemail')}}"
-                                               class="form-control"
-                                               value="{{ old('email') }}"/>
-                                        <span class="text-danger" id="client_Unit_error"></span>
+                                    <div class="form-group{{$errors->has('password')?' has-error':''}}">
+                                        <input type="password" name="password" id="password" class="form-control"
+                                               required
+                                               placeholder="{{trans('site_lang.auth_password')}}"
+                                               >
+                                        <span class="text-danger" id="password_error"></span>
                                     </div>
                                 </div>
+
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group{{$errors->has('phone')?' has-error':''}}">
 
                                         <input type="text" name="phone" id="phone"
                                                class="form-control"
-                                               placeholder="{{trans('site_lang.subphone')}}"
-                                               value="{{ old('phone') }}">
-                                        <span class="text-danger" id="client_Address_error"></span>
+                                               placeholder="{{trans('site_lang.subPhone')}}"
+                                               >
+                                        <span class="text-danger" id="phone_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group{{$errors->has('address')?' has-error':''}}">
                                         <input type="text" name="address" id="address" class="form-control"
-                                               placeholder="{{trans('site_lang.subaddress')}}"
-                                               value="{{ old('address') }}" rows="10">
-                                        <span class="text-danger" id="notes_error"></span>
+                                               placeholder="{{trans('site_lang.client_Address')}}"
+                                                rows="10">
+                                        <span class="text-danger" id="address_error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group{{$errors->has('password')?' has-error':''}}">
+                                        <input type="text" name="cat_name" id="cat_name" class="form-control"
+                                               required
+                                               placeholder="{{trans('site_lang.subCatname')}}"
+                                        >
+                                        <span class="text-danger" id="cat_name_error"></span>
                                     </div>
                                 </div>
 
@@ -169,7 +189,7 @@
             }
         });
         $(document).ready(function () {
-            $('#client_tbl').DataTable({
+            $('#subscribers_tbl').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -201,6 +221,11 @@
                         name: 'address',
                         className: 'center'
 
+                    }, {
+                        data: 'status',
+                        name: 'status',
+                        className: 'center'
+
                     },
 
                     {
@@ -221,7 +246,7 @@
                 event.preventDefault();
                 if ($('#add_client').val() == '{{trans('site_lang.public_add_btn_text')}}') {
                     $.ajax({
-                        url: "{{route('clients.store')}}",
+                        url: "{{route('subscribers.store')}}",
                         method: 'post',
                         data: new FormData(this),
                         contentType: false,
@@ -229,25 +254,26 @@
                         processData: false,
                         dataType: "json",
                         beforeSend: function () {
-                            $('#client_Name_error').empty();
-                            $('#client_Unit_error').empty();
-                            $('#client_Address_error').empty();
-                            $('#notes_error').empty();
-                            $('#type_error').empty();
+                            $('#cat_name_error').empty();
+                            $('#address_error').empty();
+                            $('#phone_error').empty();
+                            $('#password_error').empty();
+                            $('#email_error').empty();
+                            $('#name_error').empty();
                         },
                         success: function (data) {
-                            $('#add_client_model').modal('hide');
+                            $('#add_subscriber_model').modal('hide');
                             toastr.success(data.success);
-                            $("#clients").trigger('reset');
-                            $('#client_tbl').DataTable().ajax.reload();
+                            $("#subscribers").trigger('reset');
+                            $('#subscribers_tbl').DataTable().ajax.reload();
                         }, error: function (data_error, exception) {
                             if (exception == 'error') {
-                                $('#client_Name_error').html(data_error.responseJSON.errors.client_Name);
-                                $('#client_Unit_error').html(data_error.responseJSON.errors.client_Unit);
-                                $('#client_Address_error').html(data_error.responseJSON.errors.client_Address);
-                                $('#notes_error').html(data_error.responseJSON.errors.notes);
-                                $('#type_error').html(data_error.responseJSON.errors.type);
-                                $('#To_error').html(data_error.responseJSON.errors.cat_id);
+                                $('#cat_name_error').html(data_error.responseJSON.errors.cat_name);
+                                $('#address_error').html(data_error.responseJSON.errors.address);
+                                $('#phone_error').html(data_error.responseJSON.errors.phone);
+                                $('#password_error').html(data_error.responseJSON.errors.password);
+                                $('#email_error').html(data_error.responseJSON.errors.email);
+                                $('#name_error').html(data_error.responseJSON.errors.name);
                             }
                         }
                     });
@@ -267,10 +293,10 @@
                             $('#notes_error').empty();
                             $('#type_error').empty();
                         }, success: function (data) {
-                            $('#add_client_model').modal('hide');
+                            $('#add_subscriber_model').modal('hide');
                             toastr.success(data.success);
-                            $("#clients").trigger('reset');
-                            $('#client_tbl').DataTable().ajax.reload();
+                            $("#subscribers").trigger('reset');
+                            $('#subscribers_tbl').DataTable().ajax.reload();
                         }, error: function (data_error, exception) {
                             if (exception == 'error') {
                                 $('#client_Name_error').html(data_error.responseJSON.errors.client_Name);
@@ -299,7 +325,7 @@
                         $('#id').val(html.data.id);
                         $('#modal_title').text("{{trans('site_lang.clients_edit_client_text')}}");
                         $('#add_client').val("{{trans('site_lang.public_edit_btn_text')}}");
-                        $('#add_client_model').modal('show');
+                        $('#add_subscriber_model').modal('show');
 
                     }
                 })
@@ -343,14 +369,14 @@
                     success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
-                            $('#client_tbl').DataTable().ajax.reload();
+                            $('#subscribers_tbl').DataTable().ajax.reload();
                         }, 100);
                     }
                 })
             });
             $(document).ready(function () {
                 $(".modal").on("hidden.bs.modal", function () {
-                    $("#clients").trigger('reset');
+                    $("#subscribers").trigger('reset');
                 });
             });
         });
