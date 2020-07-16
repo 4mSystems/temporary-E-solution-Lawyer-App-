@@ -23,7 +23,7 @@ class CategoryController extends Controller
             $permission = Permission::where('user_id', $user_id)->first();
             $enabled = $permission->clients;
             if ($enabled == 'yes') {
-                return datatables()->of(DB::table('categories')
+                return datatables()->of(DB::table('categories')->where('parent_id', getQuery())
                     ->orderBy('id', 'desc')
                     ->get())
                     ->addColumn('action', function ($data) {
@@ -65,7 +65,8 @@ class CategoryController extends Controller
             $data = $this->validate(request(), [
                 'name' => 'required',
             ]);
-            category::create($data);
+            $data['parent_id'] = getQuery();
+             category::create($data);
             return response(['msg' => trans('site_lang.public_success_text')]);
         }
     }

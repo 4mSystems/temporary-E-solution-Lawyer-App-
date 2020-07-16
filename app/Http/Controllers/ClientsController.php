@@ -30,7 +30,8 @@ class ClientsController extends Controller
         if ($enabled == 'yes') {
             if (request()->ajax()) {
                 if ($user_type == 'admin') {
-                    return datatables()->of(Clients::latest()->get())
+
+                    return datatables()->of(Clients::query()->where('parent_id', getParentId())->get())
                         ->addColumn('action', function ($data) {
                             $button = '<button data-client-id="' . $data->id . '" id="editClient" class="btn btn-xs btn-blue tooltips" ><i
                                     class="fa fa-edit"></i>&nbsp;&nbsp;' . trans('site_lang.public_edit_btn_text') . '</button>';
@@ -58,9 +59,7 @@ class ClientsController extends Controller
 
 
             }
-
-
-            $categories = category::select('id', 'name')->get();
+            $categories = category::select('id', 'name')->where('parent_id', getQuery())->get();
             return view('clients/clients', compact('categories'));
         } else {
             return redirect(url('home'));
@@ -94,6 +93,7 @@ class ClientsController extends Controller
                 'type' => 'required|in:client,khesm'
             ]);
             $data['cat_id'] = auth()->user()->cat_id;
+            $data['parent_id'] = auth()->user()->parent_id;
         } else {
             $data = $this->validate(request(), [
                 'client_Name' => 'required',
@@ -103,9 +103,9 @@ class ClientsController extends Controller
                 'type' => 'required|in:client,khesm',
                 'cat_id' => 'required'
             ]);
+            $data['parent_id'] = getQuery();
             $data['cat_id'] = $request->cat_id;
         }
-
 
         Clients::create($data);
         return response()->json(['success' => trans('site_lang.public_success_text')]);

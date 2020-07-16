@@ -12,13 +12,13 @@ class Clients extends Model
      * @var array
      */
     protected $fillable = [
-        'client_Name', 'client_Unit', 'client_Address', 'notes', 'type' ,'cat_id',
+        'client_Name', 'client_Unit', 'client_Address', 'notes', 'type' ,'cat_id','parent_id',
     ];
 
     public function  cat_id(){
 
         return $this->hasOne('App\category','id','cat_id');
-        
+
     }
 
     public function getTypeAttribute($value)
