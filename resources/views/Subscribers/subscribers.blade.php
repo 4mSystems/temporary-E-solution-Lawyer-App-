@@ -356,7 +356,7 @@
                         processData: false,
                         dataType: "json",
                         success: function (data) {
-                            $('#edit_subscriber_model').modal('hide');
+                            $('#edit_subscriber_modal').modal('hide');
                             toastr.success(data.success);
                             $("#edit_subscribe").trigger('reset');
 

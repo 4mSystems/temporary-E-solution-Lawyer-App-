@@ -147,14 +147,21 @@ class SubscribersController extends Controller
     public function update(Request $request)
     {
         $user = User::where('id', $request->id)->first();
-        $old_date = $user->createdAt;
-        dd($old_date);
+
+        $old_date = $user->created_at;
         $old_duration = Package::select('duration')->where('id', $request->id)->first();
         $old_date = $old_date->addMonths($old_duration);
-        $user->createdAt = $old_date;
+        $user->created_at = $old_date;
         $user->package_id = $request->package_id;
+        $user->status = "Active";
+
         $user->save();
 
+        $data['package_id'] = $request->package_id;
+
+
+         User::where('parent_id',$request->id)->update($data);
+        return response(['success' => trans('site_lang.public_success_text')]);
 
     }
 

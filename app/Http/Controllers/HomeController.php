@@ -51,7 +51,7 @@ class HomeController extends Controller
 
         $users = User::where('parent_id',getQuery())->get();
         $cases = Cases::where('parent_id',getQuery())->get();
-        $sessions = Sessions::all();
+        $sessions = Sessions::where('parent_id',getQuery())->get();
         $mohdreen = mohdr::where('parent_id',getQuery())->get();
         $today = Carbon::today();
         $date = Carbon::today()->addDays(10);

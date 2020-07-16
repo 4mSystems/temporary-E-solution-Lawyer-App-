@@ -56,18 +56,11 @@
                                     <thead>
                                     <tr>
                                         <th class="center">#</th>
-<<<<<<< HEAD
-                                        <th class="center"><?php echo e(trans('site_lang.subname')); ?></th>
-                                        <th class="center"><?php echo e(trans('site_lang.subemail')); ?></th>
-                                        <th class="center"><?php echo e(trans('site_lang.subphone')); ?></th>
-                                        <th class="center"><?php echo e(trans('site_lang.subaddress')); ?></th>
-=======
                                         <th class="center"><?php echo e(trans('site_lang.subName')); ?></th>
                                         <th class="center"><?php echo e(trans('site_lang.subEmail')); ?></th>
                                         <th class="center"><?php echo e(trans('site_lang.subPhone')); ?></th>
                                         <th class="center"><?php echo e(trans('site_lang.subAddress')); ?></th>
                                         <th class="center"><?php echo e(trans('site_lang.subStatus')); ?></th>
->>>>>>> e43db07d3eb2407695270fcc6c0314da29ccf82f
                                         <th class="center"></th>
                                     </tr>
                                     </thead>
@@ -134,11 +127,6 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group<?php echo e($errors->has('address')?' has-error':''); ?>">
                                         <input type="text" name="address" id="address" class="form-control"
-<<<<<<< HEAD
-                                               placeholder="<?php echo e(trans('site_lang.subaddress')); ?>"
-                                               value="<?php echo e(old('address')); ?>" rows="10">
-                                        <span class="text-danger" id="notes_error"></span>
-=======
                                                placeholder="<?php echo e(trans('site_lang.client_Address')); ?>"
                                                rows="10">
                                         <span class="text-danger" id="address_error"></span>
@@ -165,7 +153,6 @@
                                                placeholder="<?php echo e(trans('site_lang.subCatname')); ?>"
                                         >
                                         <span class="text-danger" id="cat_name_error"></span>
->>>>>>> e43db07d3eb2407695270fcc6c0314da29ccf82f
                                     </div>
                                 </div>
 
@@ -180,8 +167,6 @@
                                        value="<?php echo e(trans('site_lang.public_add_btn_text')); ?>"/>
                             </div>
                         </form>
-<<<<<<< HEAD
-=======
                     </div>
 
                 </div>
@@ -231,7 +216,6 @@
                                        value="<?php echo e(trans('site_lang.public_add_btn_text')); ?>"/>
                             </div>
                         </form>
->>>>>>> e43db07d3eb2407695270fcc6c0314da29ccf82f
                     </div>
 
                 </div>
@@ -375,7 +359,7 @@
                         processData: false,
                         dataType: "json",
                         success: function (data) {
-                            $('#edit_subscriber_model').modal('hide');
+                            $('#edit_subscriber_modal').modal('hide');
                             toastr.success(data.success);
                             $("#edit_subscribe").trigger('reset');
 
