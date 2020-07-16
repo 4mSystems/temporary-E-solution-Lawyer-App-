@@ -132,7 +132,9 @@ Route::get('profile/client_cases/{id}', 'ClientProfileController@client_cases');
 
 // Packages
 
-Route::resource('Packages', 'PackagesController');
+Route::resource('packages', 'PackagesController');
+Route::get('packages/destroy/{id}', 'PackagesController@destroy');
+Route::post('packages/update', 'PackagesController@update')->name('packages.update');
 }
 
 );

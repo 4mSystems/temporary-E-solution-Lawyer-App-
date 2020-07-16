@@ -101,7 +101,7 @@
                             class="icon-arrow"></i> </a>
                     <ul class="sub-menu">
                         <li>
-                            <a href="<?php echo e(url('/dailyReport')); ?>">
+                            <a href="<?php echo e(url('/packages')); ?>">
                                 <i class="fa fa-hacker-news"></i>&nbsp;<span
                                     class="title"><?php echo e(trans('site_lang.side_Packages')); ?></span>
                             </a>

@@ -101,7 +101,7 @@
                             class="icon-arrow"></i> </a>
                     <ul class="sub-menu">
                         <li>
-                            <a href="{{url('/dailyReport')}}">
+                            <a href="{{url('/packages')}}">
                                 <i class="fa fa-hacker-news"></i>&nbsp;<span
                                     class="title">{{trans('site_lang.side_Packages')}}</span>
                             </a>
