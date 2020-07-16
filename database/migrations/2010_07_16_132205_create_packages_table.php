@@ -17,7 +17,7 @@ class CreatePackagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('cost');
-            $table->integer('duration');
+            $table->bigInteger('duration');
             $table->timestamps();
         });
     }

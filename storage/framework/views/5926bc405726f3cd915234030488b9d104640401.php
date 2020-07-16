@@ -113,7 +113,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo e(url('/MonthlyReport')); ?>">
+                            <a href="<?php echo e(url('/subscribers')); ?>">
                                 <i class="fa fa-file-movie-o"></i>&nbsp;<span
                                     class="title"><?php echo e(trans('site_lang.side_ClientReservation')); ?></span>
                             </a>

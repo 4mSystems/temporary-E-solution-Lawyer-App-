@@ -140,6 +140,13 @@ return [
     'attachments_edit_attach' => 'تعديل بيانات الملحق',
     'attachments_file_attach' => 'الملف',
     'attachments_desc_attach' => 'الوصف',
+    //Packages
+    'Add_new_package' => 'اضافة عرض جديد',
+    'Add_package' => 'اضافة عرض',
+    'packae_name' => 'اسم العرض',
+    'package_cost' => 'التكلفة',
+    'package_duration' => 'المدة',
+    'package_edit_client_text' => 'تعديل بيانات العرض',
     //side_categories
     'side_categories' => 'التصنيفات',
     'category_name' => 'إسم التصنيف',

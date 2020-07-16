@@ -16,7 +16,7 @@
                 <div class="toolbar row">
                     <div class="col-sm-12 hidden-xs">
                         <div class="page-header">
-                            <h3 class="text-bold">{{trans('site_lang.side_clients')}} </h3>
+                            <h3 class="text-bold">{{trans('site_lang.side_Packages')}} </h3>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                                 </a>
                             </li>
                             <li class="active">
-                                {{trans('site_lang.side_clients')}}
+                                {{trans('site_lang.side_Packages')}}
                             </li>
                         </ol>
                     </div>
@@ -46,20 +46,18 @@
 
                                 <a class="btn btn-primary" id="addClientModal"><i
 
-                                        class="fa fa-plus"></i>{{trans('site_lang.clients_add_new_client_text')}} </a>
+                                        class="fa fa-plus"></i>{{trans('site_lang.Add_package')}} </a>
                             </div>
                             <div class="panel-body">
 
                                 <table class="table table-striped table-bordered table-hover table-full-width"
-                                       id="client_tbl">
+                                       id="package_tbl">
                                     <thead>
                                     <tr>
                                         <th class="center">#</th>
-                                        <th class="center">{{trans('site_lang.clients_client_name')}}</th>
-                                        <th class="center">{{trans('site_lang.clients_client_unit')}}</th>
-                                        <th class="center">{{trans('site_lang.clients_client_address')}}</th>
-                                        <th class="center">{{trans('site_lang.clients_client_notes')}}</th>
-                                        <th class="center">{{trans('site_lang.clients_client_type')}}</th>
+                                        <th class="center">{{trans('site_lang.packae_name')}}</th>
+                                        <th class="center">{{trans('site_lang.package_cost')}}</th>
+                                        <th class="center">{{trans('site_lang.package_duration')}}</th>
                                         <th class="center"></th>
                                     </tr>
                                     </thead>
@@ -73,7 +71,7 @@
             </div>
         </div>
         <!-- end: PAGE -->
-        <div id="add_client_model" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+        <div id="add_package_model" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
              class="modal bs-example-modal-basic fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -81,90 +79,41 @@
                         <h4 class="modal-title" id="modal_title"></h4>
                     </div>
                     <div class="modal-body">
-                        <form method="post" id="clients" enctype="multipart/form-data">
+                        <form method="post" id="packages" enctype="multipart/form-data">
                             <input type="hidden" id="token" name="_token" value="{{csrf_token()}}">
                             <input type="hidden" name="id" id="id">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group{{$errors->has('client_Name')?' has-error':''}}">
-                                        <input type="text" name="client_Name" class="form-control" id="client_Name"
-                                               placeholder="{{trans('site_lang.clients_client_name')}}"
-                                               value="{{ old('client_Name') }}">
-                                        <span class="text-danger" id="client_Name_error"></span>
+                                    <div class="form-group{{$errors->has('name')?' has-error':''}}">
+                                        <input type="text" name="name" class="form-control" id="name"
+                                               placeholder="{{trans('site_lang.packae_name')}}"
+                                               value="{{ old('name') }}">
+                                        <span class="text-danger" id="package_Name_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group{{$errors->has('client_Unit')?' has-error':''}}">
+                                    <div class="form-group{{$errors->has('cost')?' has-error':''}}">
 
-                                        <input name="client_Unit" id="client_Unit"
-                                               placeholder="{{trans('site_lang.clients_client_unit')}}"
+                                        <input name="cost" id="cost"
+                                               placeholder="{{trans('site_lang.package_cost')}}"
                                                class="form-control"
-                                               value="{{ old('client_Unit') }}"/>
-                                        <span class="text-danger" id="client_Unit_error"></span>
+                                               value="{{ old('cost') }}"/>
+                                        <span class="text-danger" id="package_cost_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group{{$errors->has('client_Address')?' has-error':''}}">
+                                    <div class="form-group{{$errors->has('duration')?' has-error':''}}">
 
-                                        <input type="text" name="client_Address" id="client_Address"
+                                        <input type="text" name="duration" id="duration"
                                                class="form-control"
-                                               placeholder="{{trans('site_lang.clients_client_address')}}"
-                                               value="{{ old('client_Address') }}">
-                                        <span class="text-danger" id="client_Address_error"></span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group{{$errors->has('notes')?' has-error':''}}">
-                                        <textarea type="text" name="notes" id="notes" class="form-control"
-                                                  placeholder="{{trans('site_lang.clients_client_notes')}}"
-                                                  value="{{ old('notes') }}" rows="10"></textarea>
-                                        <span class="text-danger" id="notes_error"></span>
+                                               placeholder="{{trans('site_lang.package_duration')}}"
+                                               value="{{ old('duration') }}">
+                                        <span class="text-danger" id="package_duration_error"></span>
                                     </div>
                                 </div>
 
 
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group{{$errors->has('notes')?' has-error':''}}">
-                                        <select type="select" name="type" id="type" class="form-control"
 
-                                                value="{{ old('type') }}">
-
-
-                                            <option value="" selected
-                                                    data-default>{{trans('site_lang.clients_client_type')}}
-                                            </option>
-                                            <option
-                                                value="client">{{trans('site_lang.clients_client_type_client')}}</option>
-                                            <option
-                                                value="khesm">{{trans('site_lang.clients_client_type_khesm')}}</option>
-
-
-                                        </select>
-                                        <span class="text-danger" id="type_error"></span>
-                                    </div>
-                                </div>
-
-                                @php
-                                    $user_type = auth()->user()->type;
-                                    if($user_type == 'admin'){
-                                @endphp
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group{{$errors->has('cat_id')?' has-error':''}}">
-                                        <select id="form-field-select-3" class="form-control select2-arrow"
-                                                name="cat_id">
-                                            <option value="">
-                                                &nbsp;{{trans('site_lang.add_case_to_whom')}}</option>
-                                            @foreach($categories as $category)
-                                                <option
-                                                    value='{{$category->id}}'>{{$category->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <span class="text-danger" id="To_error"></span>
-                                    </div>
-                                </div>
-                                @php
-                                    }
-                                @endphp
                             </div>
                             <div class="form-group right">
                                 <button data-dismiss="modal" class="btn btn-default" type="button">
@@ -214,11 +163,11 @@
             }
         });
         $(document).ready(function () {
-            $('#client_tbl').DataTable({
+            $('#package_tbl').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('clients.index') }}",
+                    url: "{{ route('packages.index') }}",
                 },
                 columns: [
                     {
@@ -227,25 +176,16 @@
                         className: 'center'
                     },
                     {
-                        data: 'client_Name',
-                        name: 'client_Name',
+                        data: 'name',
+                        name: 'name',
                         className: 'center'
                     }, {
-                        data: 'client_Unit',
-                        name: 'client_Unit',
+                        data: 'cost',
+                        name: 'cost',
                         className: 'center'
                     }, {
-                        data: 'client_Address',
-                        name: 'client_Address',
-                        className: 'center'
-                    }, {
-                        data: 'notes',
-                        name: 'notes',
-                        className: 'center'
-                    }, {
-                        data: 'type',
-                        name: 'type',
-                        orderable: false,
+                        data: 'duration',
+                        name: 'duration',
                         className: 'center'
                     },
 
@@ -259,15 +199,15 @@
             });
 
             $('#addClientModal').click(function () {
-                $('#modal_title').text("{{trans('site_lang.clients_add_new_client_text')}}");
+                $('#modal_title').text("{{trans('site_lang.Add_new_package')}}");
                 $('#add_client').val("{{trans('site_lang.public_add_btn_text')}}");
-                $('#add_client_model').modal('show');
+                $('#add_package_model').modal('show');
             });
-            $('#clients').on('submit', function (event) {
+            $('#packages').on('submit', function (event) {
                 event.preventDefault();
                 if ($('#add_client').val() == '{{trans('site_lang.public_add_btn_text')}}') {
                     $.ajax({
-                        url: "{{route('clients.store')}}",
+                        url: "{{route('packages.store')}}",
                         method: 'post',
                         data: new FormData(this),
                         contentType: false,
@@ -275,31 +215,28 @@
                         processData: false,
                         dataType: "json",
                         beforeSend: function () {
-                            $('#client_Name_error').empty();
-                            $('#client_Unit_error').empty();
-                            $('#client_Address_error').empty();
-                            $('#notes_error').empty();
-                            $('#type_error').empty();
+                            $('#package_Name_error').empty();
+                            $('#packae_cost_error').empty();
+                            $('#package_duration_error').empty();
+
                         },
                         success: function (data) {
-                            $('#add_client_model').modal('hide');
+                            $('#add_package_model').modal('hide');
                             toastr.success(data.success);
-                            $("#clients").trigger('reset');
-                            $('#client_tbl').DataTable().ajax.reload();
+                            $("#packages").trigger('reset');
+                            $('#package_tbl').DataTable().ajax.reload();
                         }, error: function (data_error, exception) {
                             if (exception == 'error') {
-                                $('#client_Name_error').html(data_error.responseJSON.errors.client_Name);
-                                $('#client_Unit_error').html(data_error.responseJSON.errors.client_Unit);
-                                $('#client_Address_error').html(data_error.responseJSON.errors.client_Address);
-                                $('#notes_error').html(data_error.responseJSON.errors.notes);
-                                $('#type_error').html(data_error.responseJSON.errors.type);
-                                $('#To_error').html(data_error.responseJSON.errors.cat_id);
+                                $('#package_Name_error').html(data_error.responseJSON.errors.name);
+                                $('#packae_cost_error').html(data_error.responseJSON.errors.cost);
+                                $('#package_duration_error').html(data_error.responseJSON.errors.duration);
+
                             }
                         }
                     });
                 } else {
                     $.ajax({
-                        url: "{{ route('clients.update') }}",
+                        url: "{{ route('packages.update') }}",
                         method: "POST",
                         data: new FormData(this),
                         contentType: false,
@@ -307,50 +244,40 @@
                         processData: false,
                         dataType: "json",
                         beforeSend: function () {
-                            $('#client_Name_error').empty();
-                            $('#client_Unit_error').empty();
-                            $('#client_Address_error').empty();
-                            $('#notes_error').empty();
-                            $('#type_error').empty();
+                            $('#package_Name_error').empty();
+                            $('#packae_cost_error').empty();
+                            $('#package_duration_error').empty();
                         }, success: function (data) {
-                            $('#add_client_model').modal('hide');
+                            $('#add_package_model').modal('hide');
                             toastr.success(data.success);
-                            $("#clients").trigger('reset');
-                            $('#client_tbl').DataTable().ajax.reload();
+                            $("#packages").trigger('reset');
+                            $('#package_tbl').DataTable().ajax.reload();
                         }, error: function (data_error, exception) {
                             if (exception == 'error') {
-                                $('#client_Name_error').html(data_error.responseJSON.errors.client_Name);
-                                $('#client_Unit_error').html(data_error.responseJSON.errors.client_Unit);
-                                $('#client_Address_error').html(data_error.responseJSON.errors.client_Address);
-                                $('#notes_error').html(data_error.responseJSON.errors.notes);
-                                $('#type_error').html(data_error.responseJSON.errors.type);
-                                $('#To_error').html(data_error.responseJSON.errors.cat_id);
+                                $('#package_Name_error').html(data_error.responseJSON.errors.name);
+                                $('#packae_cost_error').html(data_error.responseJSON.errors.cost);
+                                $('#package_duration_error').html(data_error.responseJSON.errors.duration);
                             }
                         }
                     });
                 }
             });
 
-            $(document).on('click', '#editClient', function () {
-                var id = $(this).data('client-id');
+            $(document).on('click', '#editPackage', function () {
+                var id = $(this).data('package-id');
+
                 $.ajax({
-                    url: "/clients/" + id + "/edit",
+                    url: "/packages/" + id + "/edit",
                     dataType: "json",
                     success: function (html) {
-                        $('#client_Name').val(html.data.client_Name);
-                        $('#client_Unit').val(html.data.client_Unit);
-                        $('#client_Address').val(html.data.client_Address);
-                        $('#notes').val(html.data.notes);
-                         $("#form-field-select-3").val(html.data.cat_id);
-                        if (html.data.type == '{{trans('site_lang.clients_client_type_client')}}') {
-                            $('#type').val('client');
-                        } else {
-                            $('#type').val('khesm');
-                        }
+                        $('#add_package_model').modal('show');
+                        $('#name').val(html.data.name);
+                        $('#cost').val(html.data.cost);
+                        $('#duration').val(html.data.duration);
                         $('#id').val(html.data.id);
-                        $('#modal_title').text("{{trans('site_lang.clients_edit_client_text')}}");
+                        $('#modal_title').text("{{trans('site_lang.package_edit_client_text')}}");
                         $('#add_client').val("{{trans('site_lang.public_edit_btn_text')}}");
-                        $('#add_client_model').modal('show');
+
 
                     }
                 })
@@ -381,27 +308,27 @@
             });
 
 
-            $(document).on('click', '#deleteClient', function () {
-                client_id = $(this).data('client-id');
+            $(document).on('click', '#deletePackage', function () {
+                Package_id = $(this).data('package-id');
                 $('#confirmModal').modal('show');
             });
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "clients/destroy/" + client_id,
+                    url: "packages/destroy/" + Package_id,
                     beforeSend: function () {
                         $('#ok_button').text('{{trans('site_lang.public_continue_delete_modal_text')}}');
                     },
                     success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
-                            $('#client_tbl').DataTable().ajax.reload();
+                            $('#package_tbl').DataTable().ajax.reload();
                         }, 100);
                     }
                 })
             });
             $(document).ready(function () {
                 $(".modal").on("hidden.bs.modal", function () {
-                    $("#clients").trigger('reset');
+                    $("#packages").trigger('reset');
                 });
             });
         });
