@@ -21,13 +21,14 @@ class UsersController extends Controller
         $permission = Permission::where('user_id', $user_id)->first();
         $enabled = $permission->users;
         if ($enabled == 'yes') {
-            $users=null;
+            $users = null;
             if (auth()->user()->parent_id != null) {
-                $users = User::query()->where('parent_id','=',auth()->user()->parent_id)->get();
-            }else{
-                $users = User::query()->where('parent_id','=',auth()->user()->id)->get();
+                $users = User::query()->where('parent_id', '=', getQuery())->get();
+            } else {
+                $users = User::query()->where('parent_id', getQuery())->orWhere('id', getQuery())->get();
             }
-             $categories = category::select('id', 'name')->get();
+            $categories = category::where('parent_id', getQuery())->select('id', 'name')->get();
+
             return view('users/users', compact('users', 'categories'));
         } else {
             return redirect(url('home'));
@@ -47,6 +48,8 @@ class UsersController extends Controller
             $data = $this->validate(request(), [
                 'name' => 'required',
                 'email' => 'required|unique:users,email',
+                'phone' => 'required||unique:users,phone',
+                'address' => 'required',
                 'password' => 'required',
                 'type' => 'required',
                 'cat_id' => 'required'
@@ -54,8 +57,10 @@ class UsersController extends Controller
 
             $data['password'] = bcrypt(request('password'));
             $data['parent_id'] = getParentId();
+            $data['package_id'] = auth()->user()->package_id;
+//            dd(getParentId());
             $user = User::create($data);
-             $user_id = $user->id;
+            $user_id = $user->id;
             $permissions['user_id'] = $user_id;
             $per = Permission::create($permissions);
             $per->save();
@@ -95,32 +100,30 @@ class UsersController extends Controller
 
     public function update(Request $request)
     {
+
         if ($request->ajax()) {
-            $attribute = [
-                'name' => trans('usersValidations.name'),
-                'email' => trans('usersValidations.email'),
-                'password' => trans('usersValidations.password'),
-                'type' => trans('usersValidations.type')
-            ];
             $data = $this->validate(request(), [
                 'name' => 'required',
                 'email' => 'required|unique:users,email,' . $request->id,
-                'password' => 'required',
-                'type' => 'required'
-            ], [], $attribute);
-            $users = User::find($request->id);
-            $users->name = $request->input('name');
-            $users->email = $request->input('email');
-            $users->password = $request->input('password');
-            $users->type = $request->input('type');
-            $users->update();
+                'phone' => 'required||unique:users,phone,' . $request->id,
+                'address' => 'required',
+                'type' => 'required',
+                'cat_id' => 'required'
+
+            ]);
+            $users = User::where('id', $request->id)->update($data);
             return response(['msg' => trans('site_lang.public_success_text'), 'result' => $users]);
         }
     }
 
     public function destroy($id)
     {
-        $data = User::findOrFail($id);
-        $data->delete();
+        $user = User::where('id', $id)->first();
+        if ($user->parent_id == null) {
+            return response(['status'=>false,'msg' => trans('site_lang.deleteUserAdminError')]);
+        } else {
+            $data = User::findOrFail($id);
+            $data->delete();
+        }
     }
 }

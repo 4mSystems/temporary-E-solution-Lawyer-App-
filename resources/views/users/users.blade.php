@@ -117,11 +117,33 @@
                                         <span class="text-danger" id="password_error"></span>
                                     </div>
                                 </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group{{$errors->has('phone')?' has-error':''}}">
+                                        <input type="text" name="phone" id="phone" class="form-control"
+                                               required
+                                               placeholder="{{trans('site_lang.phone')}}"
+                                               value="{{ old('phone') }}">
+                                        <span class="text-danger" id="phone_error"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group{{$errors->has('address')?' has-error':''}}">
+                                        <input type="text" name="address" id="address" class="form-control"
+                                               required
+                                               placeholder="{{trans('site_lang.address')}}"
+                                               value="{{ old('address') }}">
+                                        <span class="text-danger" id="address_error"></span>
+                                    </div>
+                                </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group{{$errors->has('type')?' has-error':''}}">
                                         <select id="type" name="type" required
                                                 class="form-control">
-                                            <option value="" selected="selected">&nbsp;</option>
+                                            <option value="" selected="selected">
+                                                &nbsp;{{trans('site_lang.selectType')}}</option>
                                             <option value="Admin">ِAdmin</option>
                                             <option value="User">User</option>
                                         </select>
@@ -212,6 +234,8 @@
                                 $('#name_error').html(data_error.responseJSON.errors.name);
                                 $('#password_error').html(data_error.responseJSON.errors.password);
                                 $('#email_error').html(data_error.responseJSON.errors.email);
+                                $('#phone_error').html(data_error.responseJSON.errors.phone);
+                                $('#address_error').html(data_error.responseJSON.errors.address);
                                 $('#type_error').html(data_error.responseJSON.errors.type);
                                 $('#cat_id').html(data_error.responseJSON.errors.cat_id);
                             }
@@ -237,11 +261,15 @@
                             $("#userType" + data.result.id).html(data.result.type);
                             toastr.success(data.msg);
                             $('#add_user_model').modal('hide');
+                            $("#users").trigger('reset');
                         }, error: function (data_error, exception) {
                             if (exception == 'error') {
                                 $('#name_error').html(data_error.responseJSON.errors.name);
                                 $('#password_error').html(data_error.responseJSON.errors.password);
                                 $('#email_error').html(data_error.responseJSON.errors.email);
+                                $('#phone_error').html(data_error.responseJSON.errors.phone);
+                                $('#address_error').html(data_error.responseJSON.errors.address);
+
                                 $('#type_error').html(data_error.responseJSON.errors.type);
                             }
                         }
@@ -250,19 +278,26 @@
             });
             $(document).on('click', '#editUser', function () {
                 var id = $(this).data('user-id');
+
                 $.ajax({
                     url: "/users/" + id + "/edit",
                     dataType: "json",
                     success: function (html) {
+                        $('#password').val(html.data.name).hide();
                         $('#name').val(html.data.name);
                         $('#email').val(html.data.email);
-                        $('#password').val(html.data.password);
+                        $('#phone').val(html.data.phone);
+                        $('#address').val(html.data.address);
+                        $('#type').val(html.data.type);
+                        $('#form-field-select-3').val(html.data.cat_id);
+
+
                         $('#id').val(html.data.id);
-                        if (html.data.type == "Admin") {
-                            $('#form-field-select-1 option[value=Admin]').attr('selected', 'selected');
-                        } else {
-                            $('#form-field-select-1 option[value=User]').attr('selected', 'selected');
-                        }
+                        // if (html.data.type == "Admin") {
+                        //     $('#form-field-select-1 option[value=Admin]').attr('selected', 'selected');
+                        // } else {
+                        //     $('#form-field-select-1 option[value=User]').attr('selected', 'selected');
+                        // }
                         $('#user_modal_title').text("{{trans('site_lang.users_edit_user')}}");
                         $('#add_user').val("{{trans('site_lang.public_edit_btn_text')}}");
                         $('#add_user_model').modal('show');
@@ -286,7 +321,11 @@
                     success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
-                            $('#userRow' + user_id).remove();
+                            if(data.status) {
+                                $('#userRow' + user_id).remove();
+                            }else {
+                                toastr.error(data.msg);
+                            }
                         }, 2000);
                     }
                 })

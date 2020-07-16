@@ -168,5 +168,9 @@ return [
     'edit'=>'تعديل',
     'emp'=>'اسم الموظف ',
     'createdAt'=>'وقت الاضافه',
-    'cannot_delete_parent_category'=>'لا يمكن حذف التصنيف '
+    'cannot_delete_parent_category'=>'لا يمكن حذف التصنيف ',
+    'deleteUserAdminError'=>'لا يمكن حذف هذا المستخدم يرجى الرجوع الى النظام',
+    'phone'=>'رقم الهاتف',
+    'address'=>'العنوان',
+    'selectType'=>'اختر النوع',
 ];
