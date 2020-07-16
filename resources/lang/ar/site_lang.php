@@ -39,6 +39,10 @@ return [
     'side_reports' => 'التقارير',
     'side_reports_daily' => 'التقارير اليومية',
     'side_reports_monthly' => 'التقارير الشهرية',
+    'side_ControlPanel' => 'لوحة التحكم',
+    'side_Packages' => 'العروض',
+    'side_packageClient' => 'عملاء الموقع',
+    'side_ClientReservation' => 'متابعة العملاء',
     'side_exit' => 'تسجيل الخروج',
     //users
     'users_all' => 'كل المستخدمين',
