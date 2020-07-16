@@ -19,6 +19,11 @@
             </div>
             <!-- start: MAIN NAVIGATION MENU -->
             <ul class="main-navigation-menu">
+
+                <?php
+                    $user_type = auth()->user()->type;
+                    if($user_type != 'manager'){
+                ?>
                 <li class="active open">
                     <a href="<?php echo e(route('home')); ?>"><i class="fa fa-home"></i>&nbsp;&nbsp; <span
                             class="title"> <?php echo e(trans('site_lang.side_home')); ?> </span></a>
@@ -94,6 +99,18 @@
 
                 </li>
 
+                <?php
+                    }
+                ?>
+
+
+
+
+
+                <?php
+                    $user_type = auth()->user()->type;
+                    if($user_type == 'manager'){
+                ?>
                 <li>
 
                     <a href="javascript:void(0)"><i class="fa fa-file-excel-o"></i> &nbsp;<span
@@ -123,7 +140,9 @@
 
 
                 </li>
-
+                <?php
+                }
+                ?>
 
                 <li>
                     <a href="<?php echo e(route('logout')); ?>" type='submit' class="btn btn-sm log-out text-right"

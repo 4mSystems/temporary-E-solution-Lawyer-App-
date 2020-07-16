@@ -140,3 +140,6 @@ Route::get('profile/client_cases/{id}', 'ClientProfileController@client_cases');
 }
 
 );
+
+
+Route::get('reservtion','ReservationController@index');

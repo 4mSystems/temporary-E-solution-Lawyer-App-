@@ -14,22 +14,27 @@ class SubscribersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        if (request()->ajax()) {
+    {$user_type = auth()->user()->type;
+        if ($user_type == 'manager') {
+            if (request()->ajax()) {
 
-            return datatables()->of(User::where('parent_id',null)->get())
-                ->addColumn('action', function ($data) {
-                    $button = '<button data-client-id="' . $data->id . '" id="editClient" class="btn btn-xs btn-blue tooltips" ><i
+                return datatables()->of(User::where('parent_id', null)->get())
+                    ->addColumn('action', function ($data) {
+                        $button = '<button data-client-id="' . $data->id . '" id="editClient" class="btn btn-xs btn-blue tooltips" ><i
                                     class="fa fa-edit"></i>&nbsp;&nbsp;' . trans('site_lang.public_edit_btn_text') . '</button>';
-                    $button .= '&nbsp;&nbsp;';
-                    $button .= '<button data-client-id="' . $data->id . '" id="deleteClient"  class="btn btn-xs btn-red tooltips" ><i
+                        $button .= '&nbsp;&nbsp;';
+                        $button .= '<button data-client-id="' . $data->id . '" id="deleteClient"  class="btn btn-xs btn-red tooltips" ><i
                                     class="fa fa-times fa fa-white"></i>&nbsp;&nbsp;' . trans('site_lang.public_delete_text') . '</button>';
-                    return $button;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-        return view('Subscribers.subscribers');
+                        return $button;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+            return view('Subscribers.subscribers');
+        } else {
+                return redirect(url('home'));
+
+            }
     }
 
     /**
