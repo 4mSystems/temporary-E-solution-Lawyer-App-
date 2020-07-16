@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('categories/destroy/{id}', 'CategoryController@destroy');
 
 //cases
-    Route::resource('cases', 'CasesController'); 
+    Route::resource('cases', 'CasesController');
     Route::get('addCase', 'CasesController@getClients');
 
 //Mohdareen
@@ -69,8 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('caseDetails/printSessionNotes/{id}', 'CaseDetailsController@printSessionNotes');
 //Case Report
     Route::get('caseDetails/printCase/{id}', 'CaseDetailsController@printCase');
-    //Case delete
-    
+//Case delete
     Route::get('caseDetails/delete/{id}', 'CaseDetailsController@delete');
 
 
@@ -118,9 +117,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('permission', 'PermissionController');
 
-// client profile 
+// client profile
 Route::get('profile/{id}', 'ClientProfileController@profile');
-
 
 Route::get('profile/deletenote/{id}', 'ClientProfileController@delete_Note');
 
@@ -132,7 +130,9 @@ Route::post('profile/{id}/edit_notes', 'ClientProfileController@update_note');
 Route::post('profile/store/{id}', 'ClientProfileController@store');
 Route::get('profile/client_cases/{id}', 'ClientProfileController@client_cases');
 
+// Packages
 
+Route::resource('Packages', 'PackagesController');
 }
 
 );
