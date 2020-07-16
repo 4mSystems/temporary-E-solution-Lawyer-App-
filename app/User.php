@@ -19,7 +19,7 @@ class User extends Authenticatable
         'name', 'type', 'password','email','cat_id','parent_id','phone','address','package_id','status'
     ];
 
-    public function
+
     /**
      * The attributes that should be hidden for arrays.
      *
