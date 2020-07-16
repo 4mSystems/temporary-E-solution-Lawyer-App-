@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
 class SubscribersController extends Controller
 {
     /**
@@ -13,7 +13,20 @@ class SubscribersController extends Controller
      */
     public function index()
     {
-        //
+//        $subscribers = User::where('parent_id',null)->get();
+        if (request()->ajax()) {
+            return datatables()->of(User::where('parent_id', null)->get())
+                ->addColumn('action', function ($data) {
+                    $button = '<button  data-client-id="' . $data->id . '" id="editnote" class="btn btn-xs btn-green tooltips" ><i
+                            class="fa fa-edit"></i>&nbsp;&nbsp;' . trans('site_lang.edit') . '</button>';
+                    $button .= '&nbsp;&nbsp;';
+                    $button .= '<a  data-client-id="' . $data->id . '" id="deletenote" class="btn btn-xs btn-red tooltips" ><i
+                            class="fa fa-trash"></i>&nbsp;&nbsp;' . trans('site_lang.delete') . '</a>';
+                    return $button;
+                })->rawColumns(['action'])->make(true);
+        }
+
+        return view('Subscribers/subscribers');
     }
 
     /**

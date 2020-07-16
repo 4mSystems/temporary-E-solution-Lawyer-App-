@@ -131,8 +131,10 @@ Route::post('profile/store/{id}', 'ClientProfileController@store');
 Route::get('profile/client_cases/{id}', 'ClientProfileController@client_cases');
 
 // Packages
+    Route::resource('Packages', 'PackagesController');
 
-Route::resource('Packages', 'PackagesController');
+    Route::resource('subscribers', 'SubscribersController');
+
 }
 
 );
