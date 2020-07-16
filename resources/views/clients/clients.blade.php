@@ -121,8 +121,6 @@
                                         <span class="text-danger" id="notes_error"></span>
                                     </div>
                                 </div>
-
-
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group{{$errors->has('notes')?' has-error':''}}">
                                         <select type="select" name="type" id="type" class="form-control"
@@ -143,7 +141,6 @@
                                         <span class="text-danger" id="type_error"></span>
                                     </div>
                                 </div>
-
                                 @php
                                     $user_type = auth()->user()->type;
                                     if($user_type == 'admin'){

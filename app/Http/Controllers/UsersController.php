@@ -6,6 +6,7 @@ use App\category;
 use App\Permission;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class UsersController extends Controller
 {
@@ -20,8 +21,13 @@ class UsersController extends Controller
         $permission = Permission::where('user_id', $user_id)->first();
         $enabled = $permission->users;
         if ($enabled == 'yes') {
-            $users = User::all();
-            $categories = category::select('id', 'name')->get();
+            $users=null;
+            if (auth()->user()->parent_id != null) {
+                $users = User::query()->where('parent_id','=',auth()->user()->parent_id)->get();
+            }else{
+                $users = User::query()->where('parent_id','=',auth()->user()->id)->get();
+            }
+             $categories = category::select('id', 'name')->get();
             return view('users/users', compact('users', 'categories'));
         } else {
             return redirect(url('home'));
@@ -47,10 +53,9 @@ class UsersController extends Controller
             ]);
 
             $data['password'] = bcrypt(request('password'));
-
+            $data['parent_id'] = getParentId();
             $user = User::create($data);
-            $user->save();
-            $user_id = $user->id;
+             $user_id = $user->id;
             $permissions['user_id'] = $user_id;
             $per = Permission::create($permissions);
             $per->save();

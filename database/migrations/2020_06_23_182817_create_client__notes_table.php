@@ -16,10 +16,13 @@ class CreateClientNotesTable extends Migration
         Schema::create('client__notes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('client_id')->unsigned();
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade'); 
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('notes');
+            $table->bigInteger('parent_id')->unsigned();
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

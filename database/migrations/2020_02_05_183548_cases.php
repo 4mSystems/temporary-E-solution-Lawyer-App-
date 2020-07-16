@@ -18,6 +18,9 @@ class Cases extends Migration
             $table->string('invetation_num');
             $table->string('circle_num');
             $table->string('court');
+            $table->bigInteger('parent_id')->unsigned();
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->string('first_session_date');
             $table->string('inventation_type');
             $table->bigInteger('to_whome')->unsigned();

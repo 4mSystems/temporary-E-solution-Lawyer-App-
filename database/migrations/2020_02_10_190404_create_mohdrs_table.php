@@ -22,6 +22,9 @@ class CreateMohdrsTable extends Migration
             $table->date('session_Date');
             $table->string('mokel_Name');
             $table->string('khesm_Name');
+            $table->bigInteger('parent_id')->unsigned();
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->string('notes')->nullable();
             $table->bigInteger('cat_id')->unsigned();
             $table->foreign('cat_id')->references('id')->on('categories');

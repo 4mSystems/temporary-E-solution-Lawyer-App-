@@ -522,7 +522,6 @@
                 })
             });
     </script>
-
     <script src="{{url('/js/cases-details.js') }}"></script>
     {{--    <script src="{{url('/js/table-data.js') }}" type="text/javascript"></script>--}}
     <script src="{{url('/js/ui-modals.js') }}" type="text/javascript"></script>

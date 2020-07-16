@@ -113,7 +113,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/MonthlyReport') }}">
+                            <a href="{{ url('/subscribers') }}">
                                 <i class="fa fa-file-movie-o"></i>&nbsp;<span
                                     class="title">{{trans('site_lang.side_ClientReservation')}}</span>
                             </a>
