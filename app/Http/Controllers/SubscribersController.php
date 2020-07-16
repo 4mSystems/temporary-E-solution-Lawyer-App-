@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Clients;
+
 class SubscribersController extends Controller
 {
     /**
@@ -13,20 +15,21 @@ class SubscribersController extends Controller
      */
     public function index()
     {
-//        $subscribers = User::where('parent_id',null)->get();
         if (request()->ajax()) {
-            return datatables()->of(User::where('parent_id', null)->get())
-                ->addColumn('action', function ($data) {
-                    $button = '<button  data-sub-id="' . $data->id . '" id="editsub" class="btn btn-xs btn-green tooltips" ><i
-                            class="fa fa-edit"></i>&nbsp;&nbsp;' . trans('site_lang.edit') . '</button>';
-                    $button .= '&nbsp;&nbsp;';
-                    $button .= '<a  data-sub-id="' . $data->id . '" id="deletesub" class="btn btn-xs btn-red tooltips" ><i
-                            class="fa fa-trash"></i>&nbsp;&nbsp;' . trans('site_lang.delete') . '</a>';
-                    return $button;
-                })->rawColumns(['action'])->make(true);
-        }
 
-        return view('Subscribers/subscribers');
+            return datatables()->of(User::where('parent_id',null)->get())
+                ->addColumn('action', function ($data) {
+                    $button = '<button data-client-id="' . $data->id . '" id="editClient" class="btn btn-xs btn-blue tooltips" ><i
+                                    class="fa fa-edit"></i>&nbsp;&nbsp;' . trans('site_lang.public_edit_btn_text') . '</button>';
+                    $button .= '&nbsp;&nbsp;';
+                    $button .= '<button data-client-id="' . $data->id . '" id="deleteClient"  class="btn btn-xs btn-red tooltips" ><i
+                                    class="fa fa-times fa fa-white"></i>&nbsp;&nbsp;' . trans('site_lang.public_delete_text') . '</button>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('Subscribers.subscribers');
     }
 
     /**
@@ -42,7 +45,7 @@ class SubscribersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -53,7 +56,7 @@ class SubscribersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -64,19 +67,22 @@ class SubscribersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        if (request()->ajax()) {
+            $data = User::findOrFail($id);
+            return response()->json(['data' => $data]);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -87,7 +93,7 @@ class SubscribersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
