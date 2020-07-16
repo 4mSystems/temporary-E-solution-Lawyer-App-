@@ -170,7 +170,7 @@ class ReportsController extends Controller
     {
         if ($type == 'all') {
             $data = Sessions::with('cases', 'Printnotes')
-                ->where('session_date', '=', $id)
+                ->where('session_date',  $id)
                 ->where('parent_id',getQuery())
                 ->get();
         } else {
