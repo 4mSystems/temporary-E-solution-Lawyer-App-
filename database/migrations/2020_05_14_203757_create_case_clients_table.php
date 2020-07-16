@@ -18,10 +18,7 @@ class CreateCaseClientsTable extends Migration
             $table->bigInteger('case_id')->unsigned();
             $table->foreign('case_Id')->references('id')->on('cases');
             $table->bigInteger('client_id')->unsigned();
-            $table->foreign('client_id')->references('id')->on('clients');
-            $table->bigInteger('parent_id')->unsigned();
-            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
-
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->timestamps();
         });
     }

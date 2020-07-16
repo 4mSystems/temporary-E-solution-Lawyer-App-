@@ -449,7 +449,6 @@ $(document).ready(function () {
                     $('.modal-title').text(config.trans.clients_add_new_client_text);
                     $('#add_mokel').val(config.trans.search_case_add_client);
                     $('#add_new_mokel_modal').modal('show');
-
                 }
             })
 

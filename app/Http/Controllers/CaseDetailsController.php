@@ -35,11 +35,13 @@ class CaseDetailsController extends Controller
                 if ($user_type == 'User') {
                     $case = Cases::query()
                         ->where('to_whome', '=', auth()->user()->cat_id)
+                        ->where('parent_id', '=', getQuery())
                         ->with('clients')
                         ->get();
 
                 } else {  //
                     $case = Cases::query()->with('clients')
+                        ->where('parent_id', '=', getQuery())
                         ->get();
                 }
                 return datatables()->of($case)
@@ -85,11 +87,6 @@ class CaseDetailsController extends Controller
                 ->orWhere('cases.invetation_num', 'LIKE', "%{$search}%")
                 ->select('cases.id', 'clients.client_Name', 'cases.invetation_num', 'cases.court')
                 ->get();
-            //            ->orWhereHas('clients', function ($q) use ($search) {
-//                return $q->where('clients.client_Name', 'LIKE', '%' . $search . '%');
-//            })->with(['clients' => function ($query)use ($search) {
-//                return $query->where('clients.client_Name', 'LIKE', '%' . $search . '%');
-//            }])
             foreach ($results as $key => $result) {
                 $cases_table [] = view('cases.session_result_case_item', compact('result'))->render();
             }
