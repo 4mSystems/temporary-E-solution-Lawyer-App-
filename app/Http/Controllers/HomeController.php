@@ -9,7 +9,8 @@ use App\mohdr;
 use App\Sessions;
 use Carbon\Carbon;
 use App\Session_Notes;
-
+use App\Package;
+use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     /**
@@ -29,6 +30,24 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        $package_id = auth()->user()->package_id;
+        $user_package = Package::where('id',$package_id)->first();
+        $id = getQuery();
+        $admin = User::findOrFail($id);
+        $admin->status = 'Deactive';
+        $admin->save();
+         $start_date = $admin->created_at;
+
+         $end_date = $start_date->addMonths($user_package->duration)->addDays(7);
+
+         $current_date = Carbon::now();
+         if($current_date > $end_date){
+
+             Auth::logout();
+             return redirect('reservtion')->with('errors', ' تم انتهاء مده الاشتراك من فضلك قم بدفع قيمه الاشتراك !!');
+         }
+
 
         $users = User::all();
         $cases = Cases::all();

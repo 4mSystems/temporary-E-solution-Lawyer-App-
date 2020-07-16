@@ -54,6 +54,21 @@
                 <?php echo $__env->yieldContent('code'); ?>
             </div>
 
+            <?php if(Session::has('errors')): ?>
+                <div class="alert alert-danger">
+                    <h1><?php echo e(Session('errors')); ?></h1>
+                </div>
+            <?php endif; ?>
+
+
+
+
+            <?php if(session('success')): ?>
+                <div class="alert alert-success" role='alert'>
+                    <h1><?php echo e(session('success')); ?></h1>
+                </div>
+            <?php endif; ?>
+
             <div class="message" style="padding: 10px;">
                 <?php echo $__env->yieldContent('message'); ?>
             </div>

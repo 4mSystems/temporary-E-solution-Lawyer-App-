@@ -19,6 +19,11 @@
             </div>
             <!-- start: MAIN NAVIGATION MENU -->
             <ul class="main-navigation-menu">
+
+                @php
+                    $user_type = auth()->user()->type;
+                    if($user_type != 'manager'){
+                @endphp
                 <li class="active open">
                     <a href="{{route('home')}}"><i class="fa fa-home"></i>&nbsp;&nbsp; <span
                             class="title"> {{trans('site_lang.side_home')}} </span></a>
@@ -94,6 +99,18 @@
 
                 </li>
 
+                @php
+                    }
+                @endphp
+
+
+
+
+
+                @php
+                    $user_type = auth()->user()->type;
+                    if($user_type == 'manager'){
+                @endphp
                 <li>
 
                     <a href="javascript:void(0)"><i class="fa fa-file-excel-o"></i> &nbsp;<span
@@ -123,7 +140,9 @@
 
 
                 </li>
-
+                @php
+                }
+                @endphp
 
                 <li>
                     <a href="{{ route('logout') }}" type='submit' class="btn btn-sm log-out text-right"

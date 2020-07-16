@@ -137,7 +137,11 @@ Route::get('profile/client_cases/{id}', 'ClientProfileController@client_cases');
 
     Route::resource('subscribers', 'SubscribersController');
     Route::get('subscribers/updateStatus/{id}', 'SubscribersController@updateStatus');
+    Route::post('subscribers/update', 'SubscribersController@update')->name('subscribers.update');
 
 }
 
 );
+
+
+Route::get('reservtion','ReservationController@index');

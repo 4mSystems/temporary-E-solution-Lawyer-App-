@@ -174,6 +174,54 @@
 
             <!-- /.modal-dialog -->
         </div>
+        <div id="edit_subscriber_modal" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+             class="modal bs-example-modal-basic fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal_title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="put" id="edit_subscribe">
+                            <input type="hidden" id="token" name="_token" value="{{csrf_token()}}">
+                            <input type="hidden" name="id" id="edit_id">
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <select id="package_id_dialog" class="form-control select2-arrow"
+                                                name="package_id">
+                                            <option value="">
+                                                &nbsp;{{trans('site_lang.side_Packages')}}</option>
+                                            @foreach($packages as $package)
+                                                <option
+                                                    value='{{$package->id}}'>{{$package->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <span class="text-danger" id="package_id_error"></span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="form-group right">
+                                <button data-dismiss="modal" class="btn btn-default" type="button">
+                                    {{trans('site_lang.public_close_btn_text')}}
+                                </button>
+                                <input type="hidden" name="hidden_id" id="hidden_id"/>
+                                <input type="submit" class="btn btn-primary" id="edit_client" name="edit_client"
+                                       value="{{trans('site_lang.public_add_btn_text')}}"/>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+
+
+            <!-- /.modal-dialog -->
+        </div>
         {{--confirm modal--}}
         <div id="confirmModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -293,38 +341,34 @@
                             }
                         }
                     });
-                } else {
+                }
+
+
+            }); $('#edit_subscribe').on('submit', function (event) {
+                event.preventDefault();
+
                     $.ajax({
-                        url: "{{ route('clients.update') }}",
-                        method: "POST",
+                        url: "{{ route('subscribers.update') }}",
+                        method: "post",
                         data: new FormData(this),
                         contentType: false,
                         cache: false,
                         processData: false,
                         dataType: "json",
-                        beforeSend: function () {
-                            $('#client_Name_error').empty();
-                            $('#client_Unit_error').empty();
-                            $('#client_Address_error').empty();
-                            $('#notes_error').empty();
-                            $('#type_error').empty();
-                        }, success: function (data) {
-                            $('#add_subscriber_model').modal('hide');
+                        success: function (data) {
+                            $('#edit_subscriber_model').modal('hide');
                             toastr.success(data.success);
-                            $("#subscribers").trigger('reset');
+                            $("#edit_subscribe").trigger('reset');
+
                             $('#subscribers_tbl').DataTable().ajax.reload();
                         }, error: function (data_error, exception) {
                             if (exception == 'error') {
-                                $('#client_Name_error').html(data_error.responseJSON.errors.client_Name);
-                                $('#client_Unit_error').html(data_error.responseJSON.errors.client_Unit);
-                                $('#client_Address_error').html(data_error.responseJSON.errors.client_Address);
-                                $('#notes_error').html(data_error.responseJSON.errors.notes);
-                                $('#type_error').html(data_error.responseJSON.errors.type);
-                                $('#To_error').html(data_error.responseJSON.errors.cat_id);
+                               $('#package_id_error').html(data_error.responseJSON.errors.package_id);
                             }
                         }
                     });
-                }
+
+
             });
 
             $(document).on('click', '#editClient', function () {
@@ -333,15 +377,12 @@
                     url: "/subscribers/" + id + "/edit",
                     dataType: "json",
                     success: function (html) {
-                        $('#name').val(html.data.name);
-                        $('#email').val(html.data.email);
-                        $('#phone').val(html.data.phone);
-                        $('#address').val(html.data.address);
-
-                        $('#id').val(html.data.id);
+                        console.log(html.data.id);
+                        $('#package_id_dialog').val(html.data.package_id);
+                        $('#edit_id').val(html.data.id);
                         $('#modal_title').text("{{trans('site_lang.clients_edit_client_text')}}");
-                        $('#add_client').val("{{trans('site_lang.public_edit_btn_text')}}");
-                        $('#add_subscriber_model').modal('show');
+                        $('#edit_client').val("{{trans('site_lang.public_edit_btn_text')}}");
+                        $('#edit_subscriber_modal').modal('show');
 
                     }
                 })

@@ -80,7 +80,7 @@ class MohdareenController extends Controller
 
 
             }
-            $categories = category::select('id', 'name')->get();
+            $categories = category::where('parent_id',getQuery())->select('id', 'name')->get();
             return view('mohdareen/mohdareen', compact('categories'));
         } else {
             return redirect(url('home'));
