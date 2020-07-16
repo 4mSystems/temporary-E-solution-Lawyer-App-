@@ -100,7 +100,7 @@ class SubscribersController extends Controller
 
         $Cat_data['name'] = $request->cat_name;
         $category = category::create($Cat_data);
-
+        $data['password'] = bcrypt(request('password'));
         $data['cat_id'] = $category->id;
         $data['status'] = 'Active';
         $data['type'] = 'admin';
