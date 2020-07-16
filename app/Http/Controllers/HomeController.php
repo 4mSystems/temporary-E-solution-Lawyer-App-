@@ -49,16 +49,18 @@ class HomeController extends Controller
          }
 
 
-        $users = User::all();
-        $cases = Cases::all();
+        $users = User::where('parent_id',getQuery())->get();
+        $cases = Cases::where('parent_id',getQuery())->get();
         $sessions = Sessions::all();
-        $mohdreen = mohdr::all();
+        $mohdreen = mohdr::where('parent_id',getQuery())->get();
         $today = Carbon::today();
         $date = Carbon::today()->addDays(10);
-        $session = Sessions::whereBetween('session_date', array($today, $date))->get();
-        $sessionNo = Sessions::where('session_date', '<=', $today)->where('status', 'No')->get();
+
+
+        $session = Sessions::whereBetween('session_date', array($today, $date))->where('parent_id',getQuery())->get();
+        $sessionNo = Sessions::where('session_date', '<=', $today)->where('status', 'No')->where('parent_id',getQuery())->get();
         $datee = Carbon::today()->addDays(15);
-        $mohder = mohdr::whereBetween('session_date', array($today, $datee))->get();
+        $mohder = mohdr::whereBetween('session_date', array($today, $datee))->where('parent_id',getQuery())->get();
 
         return view('home', compact(['users', 'cases', 'mohdreen', 'session', 'mohder', 'sessionNo','sessions']));
 

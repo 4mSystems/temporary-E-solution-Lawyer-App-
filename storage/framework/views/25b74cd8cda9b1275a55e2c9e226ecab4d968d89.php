@@ -45,7 +45,7 @@
                         <div class="panel panel-white">
                             <div class="panel-heading">
 
-                                <a class="btn btn-primary" id="addClientModal"><i
+                                <a class="btn btn-primary" id="addSubscribersModal"><i
 
                                         class="fa fa-plus"></i><?php echo e(trans('site_lang.clients_add_new_client_text')); ?> </a>
                             </div>
@@ -60,7 +60,7 @@
                                         <th class="center"><?php echo e(trans('site_lang.subemail')); ?></th>
                                         <th class="center"><?php echo e(trans('site_lang.subphone')); ?></th>
                                         <th class="center"><?php echo e(trans('site_lang.subaddress')); ?></th>
-                                       <th class="center"></th>
+                                        <th class="center"></th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -73,7 +73,7 @@
             </div>
         </div>
         <!-- end: PAGE -->
-        <div id="add_client_model" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+        <div id="add_subscriber_model" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
              class="modal bs-example-modal-basic fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -81,7 +81,7 @@
                         <h4 class="modal-title" id="modal_title"></h4>
                     </div>
                     <div class="modal-body">
-                        <form method="post" id="subscribers" >
+                        <form method="post" id="subscribers">
                             <input type="hidden" id="token" name="_token" value="<?php echo e(csrf_token()); ?>">
                             <input type="hidden" name="id" id="id">
                             <div class="row">
@@ -116,14 +116,13 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group<?php echo e($errors->has('address')?' has-error':''); ?>">
                                         <input type="text" name="address" id="address" class="form-control"
-                                                  placeholder="<?php echo e(trans('site_lang.subaddress')); ?>"
-                                                  value="<?php echo e(old('address')); ?>" rows="10"></input>
+                                               placeholder="<?php echo e(trans('site_lang.subaddress')); ?>"
+                                               value="<?php echo e(old('address')); ?>" rows="10">
                                         <span class="text-danger" id="notes_error"></span>
                                     </div>
                                 </div>
 
-
-
+                            </div>
                             <div class="form-group right">
                                 <button data-dismiss="modal" class="btn btn-default" type="button">
                                     <?php echo e(trans('site_lang.public_close_btn_text')); ?>
@@ -133,10 +132,7 @@
                                 <input type="submit" class="btn btn-primary" id="add_client" name="add_client"
                                        value="<?php echo e(trans('site_lang.public_add_btn_text')); ?>"/>
                             </div>
-                            </div>
                         </form>
-
-
                     </div>
 
                 </div>
@@ -218,10 +214,10 @@
                 ]
             });
 
-            $('#addClientModal').click(function () {
+            $('#addSubscribersModal').click(function () {
                 $('#modal_title').text("<?php echo e(trans('site_lang.clients_add_new_client_text')); ?>");
                 $('#add_client').val("<?php echo e(trans('site_lang.public_add_btn_text')); ?>");
-                $('#add_client_model').modal('show');
+                $('#add_subscriber_model').modal('show');
             });
             $('#subscribers').on('submit', function (event) {
                 event.preventDefault();

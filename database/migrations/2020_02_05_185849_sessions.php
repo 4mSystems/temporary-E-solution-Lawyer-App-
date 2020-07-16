@@ -18,6 +18,8 @@ class Sessions extends Migration
             $table->date('session_date');
             $table->bigInteger('case_Id')->unsigned();
             $table->foreign('case_Id')->references('id')->on('cases');
+            $table->bigInteger('parent_id')->unsigned();
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('month');
             $table->string('year');
             $table->string('status')->default('waiting');
