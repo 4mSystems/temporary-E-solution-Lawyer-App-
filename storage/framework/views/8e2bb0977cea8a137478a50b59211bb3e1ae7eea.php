@@ -535,7 +535,6 @@
                 })
             });
     </script>
-
     <script src="<?php echo e(url('/js/cases-details.js')); ?>"></script>
     
     <script src="<?php echo e(url('/js/ui-modals.js')); ?>" type="text/javascript"></script>

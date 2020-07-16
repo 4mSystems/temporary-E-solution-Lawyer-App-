@@ -1,14 +1,13 @@
-@extends('welcome')
-@section('styles')
-    <link rel="stylesheet" href="{{url('/plugins/jQuery-Tags-Input/jquery.tagsinput.css')}}">
-    <link rel="stylesheet" href="{{url('/plugins/select2/select2.css')}}">
-    <link rel="stylesheet" href="{{url('/plugins/bootstrap-select/bootstrap-select.min.css')}}">
-    <link rel="stylesheet" href="{{url('/plugins/datepicker/css/datepicker.css')}}">
-    <link rel="stylesheet" href="{{url('/plugins/DataTables/media/css/DT_bootstrap.css')}}">
-    <link href="{{url('/plugins/bootstrap-modal/css/bootstrap-modal.css') }}" rel="stylesheet" type="text/css"/>
+<?php $__env->startSection('styles'); ?>
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/jQuery-Tags-Input/jquery.tagsinput.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/select2/select2.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/bootstrap-select/bootstrap-select.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/datepicker/css/datepicker.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/DataTables/media/css/DT_bootstrap.css')); ?>">
+    <link href="<?php echo e(url('/plugins/bootstrap-modal/css/bootstrap-modal.css')); ?>" rel="stylesheet" type="text/css"/>
 
-@endsection
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
     <div class="main-container inner">
         <!-- start: PAGE -->
         <div class="main-content">
@@ -22,7 +21,8 @@
                             <!-- start: TO-DO DROPDOWN -->
                             <li class="menu-search">
                                 <a href="#">
-                                    <i class="fa fa-search"></i> {{trans('site_lang.search_case_search')}}
+                                    <i class="fa fa-search"></i> <?php echo e(trans('site_lang.search_case_search')); ?>
+
                                 </a>
                                 <!-- start: SEARCH POPOVER -->
                                 <div class="popover bottom search-box transition-all">
@@ -44,12 +44,14 @@
                     <div class="col-md-12">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{route('home')}}">
-                                    {{trans('site_lang.side_home')}}
+                                <a href="<?php echo e(route('home')); ?>">
+                                    <?php echo e(trans('site_lang.side_home')); ?>
+
                                 </a>
                             </li>
                             <li class="active">
-                                {{trans('site_lang.side_search_case')}}
+                                <?php echo e(trans('site_lang.side_search_case')); ?>
+
                             </li>
                         </ol>
                     </div>
@@ -61,13 +63,15 @@
 
                             <a class="btn btn-primary" id="addSessionModal"><i
                                     class="fa
-                                                fa-plus">&nbsp;&nbsp;</i> {{trans('site_lang.search_case_case_add_session')}}
+                                                fa-plus">&nbsp;&nbsp;</i> <?php echo e(trans('site_lang.search_case_case_add_session')); ?>
+
                             </a>
 
                         </div>
                         <div class="panel-body" id="session-div-table">
                             <div class="alert alert-warning" style="text-align: right;">
-                                {!!trans('site_lang.public_warn_text')!!}
+                                <?php echo trans('site_lang.public_warn_text'); ?>
+
                             </div>
                             <table
                                 class="table table-striped table-bordered table-hover table-full-width"
@@ -75,8 +79,8 @@
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs center">#</th>
-                                    <th class="hidden-xs center">{{trans('site_lang.home_session_date')}}</th>
-                                    <th class="hidden-xs center">{{trans('site_lang.home_session_status')}}</th>
+                                    <th class="hidden-xs center"><?php echo e(trans('site_lang.home_session_date')); ?></th>
+                                    <th class="hidden-xs center"><?php echo e(trans('site_lang.home_session_status')); ?></th>
                                     <th class="hidden-xs center"></th>
                                 </tr>
                                 </thead>
@@ -86,15 +90,17 @@
                     </div>
                     <div class="panel panel space20">
                         <div class="panel-heading">
-                            <h4 class="text-bold">{{trans('site_lang.mohdar_notes')}}</h4>
+                            <h4 class="text-bold"><?php echo e(trans('site_lang.mohdar_notes')); ?></h4>
                             <a class="btn btn-green" id="btnPrintNotes" target="_blank"><i
 
                                     class="fa
-                                                    fa-print"></i>&nbsp;&nbsp;{{trans('site_lang.search_case_case_print_notes')}}
+                                                    fa-print"></i>&nbsp;&nbsp;<?php echo e(trans('site_lang.search_case_case_print_notes')); ?>
+
                             </a>
 
                             <a class="btn btn-primary" id="addNotesModal"><i
-                                    class="fa fa-plus"></i>&nbsp;&nbsp;{{trans('site_lang.search_case_case_add_note')}}
+                                    class="fa fa-plus"></i>&nbsp;&nbsp;<?php echo e(trans('site_lang.search_case_case_add_note')); ?>
+
                             </a>
                         </div>
 
@@ -105,7 +111,7 @@
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs center">#</th>
-                                    <th class="hidden-xs center">{{trans('site_lang.home_session_status')}}</th>
+                                    <th class="hidden-xs center"><?php echo e(trans('site_lang.home_session_status')); ?></th>
                                     <th class="hidden-xs center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 </tr>
                                 </thead>
@@ -119,21 +125,21 @@
         </div>
     </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 
-@section('scripts')
-    {{--    <script src="{{url('/plugins/jquery.pulsate/jquery.pulsate.min.js) }}"></script>--}}
-    {{--    <script src="{{url('/js/pages-user-profile.js) }}"></script>--}}
-    <script src="{{url('/plugins/toastr/toastr.js') }}"></script>
-    <script src="{{url('/plugins/select2/select2.min.js') }}"></script>
-    <script src="{{url('/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
-    <script src="{{url('/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-    <script src="{{url('/plugins/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{url('/plugins/DataTables/media/js/DT_bootstrap.js') }}"></script>
-    <script src="{{url('/plugins/jQuery-Tags-Input/jquery.tagsinput.js') }}"></script>
-    <script src="{{url('/js/form-elements.js') }}"></script>
+<?php $__env->startSection('scripts'); ?>
+    
+    
+    <script src="<?php echo e(url('/plugins/toastr/toastr.js')); ?>"></script>
+    <script src="<?php echo e(url('/plugins/select2/select2.min.js')); ?>"></script>
+    <script src="<?php echo e(url('/plugins/bootstrap-select/bootstrap-select.min.js')); ?>"></script>
+    <script src="<?php echo e(url('/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js')); ?>"></script>
+    <script src="<?php echo e(url('/plugins/DataTables/media/js/jquery.dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(url('/plugins/DataTables/media/js/DT_bootstrap.js')); ?>"></script>
+    <script src="<?php echo e(url('/plugins/jQuery-Tags-Input/jquery.tagsinput.js')); ?>"></script>
+    <script src="<?php echo e(url('/js/form-elements.js')); ?>"></script>
 
         // global app configuration object
         <script>
@@ -280,15 +286,17 @@
 
 
     </script>
-{{--    <script src="{{url('/js/cases-details.js') }}"></script>--}}
-    {{--    <script src="{{url('/js/table-data.js') }}" type="text/javascript"></script>--}}
-    <script src="{{url('/js/ui-modals.js') }}" type="text/javascript"></script>
 
-@endsection
-@section('scriptDocument')
-    {{--    TableData.init();--}}
+    
+    <script src="<?php echo e(url('/js/ui-modals.js')); ?>" type="text/javascript"></script>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scriptDocument'); ?>
+    
     FormElements.init();
     UIModals.init();
     PagesUserProfile.init();
-@endsection
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('welcome', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\temporary-E-solution-Lawyer-App-\resources\views/Subscribers/subscribers.blade.php ENDPATH**/ ?>

@@ -17,10 +17,10 @@ class SubscribersController extends Controller
         if (request()->ajax()) {
             return datatables()->of(User::where('parent_id', null)->get())
                 ->addColumn('action', function ($data) {
-                    $button = '<button  data-client-id="' . $data->id . '" id="editnote" class="btn btn-xs btn-green tooltips" ><i
+                    $button = '<button  data-sub-id="' . $data->id . '" id="editsub" class="btn btn-xs btn-green tooltips" ><i
                             class="fa fa-edit"></i>&nbsp;&nbsp;' . trans('site_lang.edit') . '</button>';
                     $button .= '&nbsp;&nbsp;';
-                    $button .= '<a  data-client-id="' . $data->id . '" id="deletenote" class="btn btn-xs btn-red tooltips" ><i
+                    $button .= '<a  data-sub-id="' . $data->id . '" id="deletesub" class="btn btn-xs btn-red tooltips" ><i
                             class="fa fa-trash"></i>&nbsp;&nbsp;' . trans('site_lang.delete') . '</a>';
                     return $button;
                 })->rawColumns(['action'])->make(true);
