@@ -24,9 +24,6 @@ class CreatePermissionsTable extends Migration
             $table->enum('mohdreen',['yes','no'])->default('no');
             $table->enum('daily_report',['yes','no'])->default('no');
             $table->enum('monthly_report',['yes','no'])->default('no');
-            $table->bigInteger('parent_id')->unsigned();
-            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
-
             $table->timestamps();
         });
     }
