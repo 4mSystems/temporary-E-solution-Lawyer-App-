@@ -26,7 +26,7 @@ class PackagesController extends Controller
                         ->addColumn('action', function ($data) {
                             $button = '<button data-package-id="' . $data->id . '" id="editPackage" class="btn btn-xs btn-blue tooltips" ><i
                                     class="fa fa-edit"></i>&nbsp;&nbsp;' . trans('site_lang.public_edit_btn_text') . '</button>';
-                            $button .= '&nbsp;&nbsp;';
+                            $button .= '&nbsp';
 
                             $button .= '<button data-package-id="' . $data->id . '" id="deletePackage"  class="btn btn-xs btn-red tooltips" ><i
                                     class="fa fa-times fa fa-white"></i>&nbsp;&nbsp;' . trans('site_lang.public_delete_text') . '</button>';
