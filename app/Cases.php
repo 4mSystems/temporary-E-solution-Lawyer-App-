@@ -9,7 +9,8 @@ class Cases extends Model
     protected $table = 'cases';
 
     protected $fillable = [
-        'mokel_name', 'khesm_name', 'invetation_num', 'circle_num', 'court', 'first_session_date', 'inventation_type', 'to_whome', 'month', 'year'
+        'mokel_name', 'khesm_name', 'invetation_num', 'circle_num', 'court', 'first_session_date',
+        'inventation_type', 'to_whome', 'month', 'year','parent_id'
     ];
     protected $attributes = ['one_session_note' => ''];
 
@@ -21,6 +22,6 @@ class Cases extends Model
     public function  to_whome(){
 
         return $this->hasOne('App\category','id','to_whome');
-        
+
     }
 }
