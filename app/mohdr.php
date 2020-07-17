@@ -8,7 +8,7 @@ class mohdr extends Model
 {
     protected $primaryKey = "moh_Id";
     protected $fillable = [
-        'moh_id', 'court_mohdareen', 'paper_type', 'deliver_data', 'paper_Number', 'session_Date', 'mokel_Name', 'khesm_Name', 'case_number','cat_id'
+        'moh_id', 'court_mohdareen', 'paper_type', 'deliver_data', 'paper_Number', 'session_Date', 'mokel_Name', 'khesm_Name', 'case_number','cat_id','parent_id'
     ];
     public function getStatusAttribute($value)
     {

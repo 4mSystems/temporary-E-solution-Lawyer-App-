@@ -26,7 +26,7 @@ class MohdareenController extends Controller
         if ($enabled == 'yes') {
             if (request()->ajax()) {
                 if ($user_type == 'admin') {
-                    return datatables()->of(mohdr::get())
+                    return datatables()->of(mohdr::where('parent_id',getQuery()))
                         ->addColumn('status', function ($data) {
                             if ($data->status == trans('site_lang.public_no_text')) {
                                 $html = '<p class="btn btn-sm" data-moh-Id="' . $data->moh_Id . '">
@@ -55,7 +55,7 @@ class MohdareenController extends Controller
 
 
                 } else {
-                    return datatables()->of(mohdr::query()->where('cat_id', '=', auth()->user()->cat_id)->get())
+                    return datatables()->of(mohdr::query()->where('cat_id', '=', auth()->user()->cat_id)->where('parent_id',getQuery())->get())
                         ->addColumn('status', function ($data) {
                             if ($data->status == trans('site_lang.public_no_text')) {
                                 $html = '<p class="btn btn-sm" data-moh-Id="' . $data->moh_Id . '">
@@ -94,8 +94,8 @@ class MohdareenController extends Controller
 
     public function getClients()
     {
-        $clients = Clients::query()->where('type', '=', 'client')->get();
-        $khesm = Clients::query()->where('type', '=', 'khesm')->get();
+        $clients = Clients::query()->where('type', '=', 'client')->where('parent_id',getQuery())->get();
+        $khesm = Clients::query()->where('type', '=', 'khesm')->where('parent_id',getQuery())->get();
         return response(['status' => true, 'clients' => $clients, 'khesm' => $khesm]);
     }
 
@@ -150,6 +150,7 @@ class MohdareenController extends Controller
         $mohdar->session_Date = $request->session_Date;
         $mohdar->case_number = $request->case_number;
         $mohdar->notes = $request->notes;
+        $mohdar->parent_id = getQuery();
         $mohdar->save();
         return response()->json(['success' => trans('site_lang.public_success_text')]);
     }
@@ -191,7 +192,7 @@ class MohdareenController extends Controller
     public function export()
     {
 //        return (new MohdareenExport())->view();
-        $mohdareen = mohdr::get();
+        $mohdareen = mohdr::where('parent_id',getQuery())->get();
 //        return view('exports.mohdar_export', compact('mohdareen'));
         $pdf = PDF::loadView('exports.mohdar_export', compact('mohdareen'));
         return $pdf->stream('document.pdf');
