@@ -20,6 +20,9 @@ class Sessions extends Migration
             $table->foreign('case_Id')->references('id')->on('cases');
             $table->string('month');
             $table->string('year');
+            $table->bigInteger('parent_id')->unsigned();
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->string('status')->default('waiting');
             $table->timestamps();
         });

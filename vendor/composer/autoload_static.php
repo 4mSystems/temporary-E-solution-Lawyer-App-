@@ -89,6 +89,7 @@ class ComposerStaticInit7112b40322d34f455efb7a629f8e3589
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
+        'b4e3f29b106af37a2bb239f73cdf68c7' => __DIR__ . '/../..' . '/app/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -712,9 +713,11 @@ class ComposerStaticInit7112b40322d34f455efb7a629f8e3589
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\MohdareenController' => __DIR__ . '/../..' . '/app/Http/Controllers/MohdareenController.php',
+        'App\\Http\\Controllers\\PackagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/PackagesController.php',
         'App\\Http\\Controllers\\PermissionController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermissionController.php',
         'App\\Http\\Controllers\\ReportsController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportsController.php',
         'App\\Http\\Controllers\\Session_NotesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Session_NotesController.php',
+        'App\\Http\\Controllers\\SubscribersController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubscribersController.php',
         'App\\Http\\Controllers\\Upload' => __DIR__ . '/../..' . '/app/Http/Controllers/Upload.php',
         'App\\Http\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -739,6 +742,7 @@ class ComposerStaticInit7112b40322d34f455efb7a629f8e3589
         'App\\attachment' => __DIR__ . '/../..' . '/app/attachment.php',
         'App\\category' => __DIR__ . '/../..' . '/app/category.php',
         'App\\file' => __DIR__ . '/../..' . '/app/file.php',
+        'App\\helpers' => __DIR__ . '/../..' . '/app/helpers.php',
         'App\\mohdr' => __DIR__ . '/../..' . '/app/mohdr.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',

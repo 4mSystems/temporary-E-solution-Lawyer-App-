@@ -6,6 +6,7 @@ use App\category;
 use App\Permission;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class UsersController extends Controller
 {
@@ -47,7 +48,7 @@ class UsersController extends Controller
             ]);
 
             $data['password'] = bcrypt(request('password'));
-
+            $data['parent_id'] = getParentId();
             $user = User::create($data);
             $user->save();
             $user_id = $user->id;

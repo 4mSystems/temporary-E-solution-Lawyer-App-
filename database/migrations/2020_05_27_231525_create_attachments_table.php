@@ -19,6 +19,9 @@ class CreateAttachmentsTable extends Migration
             $table->string('img_Description');
             $table->bigInteger('case_Id')->unsigned();
             $table->foreign('case_Id')->references('id')->on('cases');
+            $table->bigInteger('parent_id')->unsigned();
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

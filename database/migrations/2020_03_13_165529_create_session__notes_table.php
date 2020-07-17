@@ -20,6 +20,9 @@ class CreateSessionNotesTable extends Migration
             $table->foreign('session_Id')->references('id')->on('sessions');
             $table->string('updated_by')->nullable();
             $table->string('status')->default('لا');
+            $table->bigInteger('parent_id')->unsigned();
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->bigInteger('cat_id')->unsigned();
             $table->foreign('cat_id')->references('id')->on('categories');
+             $table->bigInteger('parent_id');
             $table->string('password');
             $table->string('name');
             $table->string('type');
