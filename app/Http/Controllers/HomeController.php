@@ -31,6 +31,11 @@ class HomeController extends Controller
     public function index()
     {
 
+        if(\auth()->user()->type == "manager"){
+
+            return redirect('subscribers');
+        }
+
         $package_id = auth()->user()->package_id;
         $user_package = Package::where('id',$package_id)->first();
         $id = getQuery();

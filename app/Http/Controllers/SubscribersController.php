@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Permission;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User;
@@ -89,9 +90,9 @@ class SubscribersController extends Controller
     {
         $data = $this->validate(request(), [
             'name' => 'required',
-            'email' => 'required',
+            'email' =>'required|unique:users,email|regex:/(.+)@(.+)\.(.+)/i',
             'password' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|unique:users,phone',
             'address' => 'required',
             'cat_name' => 'required',
             'package_id' => 'required',
@@ -108,6 +109,10 @@ class SubscribersController extends Controller
 
         $category->parent_id = $user_result->id;
         $category->update();
+
+        $permissions['user_id'] = $user_result->id;
+        $per = Permission::create($permissions);
+        $per->save();
 
         return response()->json(['success' => trans('site_lang.public_success_text')]);
     }

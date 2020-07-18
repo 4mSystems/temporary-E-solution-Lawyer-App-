@@ -47,8 +47,8 @@ class UsersController extends Controller
         if ($request->ajax()) {
             $data = $this->validate(request(), [
                 'name' => 'required',
-                'email' => 'required|unique:users,email',
-                'phone' => 'required||unique:users,phone',
+                'email' => 'required|unique:users,email|regex:/(.+)@(.+)\.(.+)/i',
+                'phone' => 'required|unique:users,phone',
                 'address' => 'required',
                 'password' => 'required',
                 'type' => 'required',
