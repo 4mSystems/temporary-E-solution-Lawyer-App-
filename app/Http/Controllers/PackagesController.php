@@ -15,31 +15,28 @@ class PackagesController extends Controller
 
     public function index()
     {
-
-//        $user_id = auth()->user()->id;
-//        $permission = Permission::where('user_id', $user_id)->first();
-//        $enabled = $permission->clients;
-
-//        if ($enabled == 'yes') {
+        $user_type = auth()->user()->type;
+        if ($user_type == 'manager') {
             if (request()->ajax()) {
-                    return datatables()->of(Package::latest()->get())
-                        ->addColumn('action', function ($data) {
-                            $button = '<button data-package-id="' . $data->id . '" id="editPackage" class="btn btn-xs btn-blue tooltips" ><i
+                return datatables()->of(Package::latest()->get())
+                    ->addColumn('action', function ($data) {
+                        $button = '<button data-package-id="' . $data->id . '" id="editPackage" class="btn btn-xs btn-blue tooltips" ><i
                                     class="fa fa-edit"></i>&nbsp;&nbsp;' . trans('site_lang.public_edit_btn_text') . '</button>';
-                            $button .= '&nbsp';
+                        $button .= '&nbsp';
 
-                            $button .= '<button data-package-id="' . $data->id . '" id="deletePackage"  class="btn btn-xs btn-red tooltips" ><i
+                        $button .= '<button data-package-id="' . $data->id . '" id="deletePackage"  class="btn btn-xs btn-red tooltips" ><i
                                     class="fa fa-times fa fa-white"></i>&nbsp;&nbsp;' . trans('site_lang.public_delete_text') . '</button>';
-                            return $button;
-                        })
-                        ->rawColumns(['action'])
-                        ->make(true);
+                        return $button;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
             }
             return view('packages.package');
-//        } else {
-//            return redirect(url('home'));
-//
-//        }
+        } else {
+            return redirect(url('home'));
+
+        }
+
     }
 
 

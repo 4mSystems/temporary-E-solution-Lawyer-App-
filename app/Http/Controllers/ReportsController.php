@@ -33,7 +33,7 @@ class ReportsController extends Controller
         $user_id = auth()->user()->id;
         $permission = Permission::where('user_id', $user_id)->first();
         $enabled = $permission->daily_report;
-        $categories = category::select('id', 'name')->get();
+        $categories = category::select('id', 'name')->where('parent_id',getQuery())->get();
 
         if ($enabled == 'yes') {
             return view('Reports.CasesDailyReport',compact('categories'));
@@ -46,7 +46,7 @@ class ReportsController extends Controller
     {
         $user_id = auth()->user()->id;
         $permission = Permission::where('user_id', $user_id)->first();
-        $categories = category::select('id', 'name')->get();
+        $categories = category::select('id', 'name')->where('parent_id',getQuery())->get();
         $enabled = $permission->monthly_report;
         if ($enabled == 'yes') {
             return view('Reports.CasesMonthlyReport',compact('categories'));
@@ -82,16 +82,19 @@ class ReportsController extends Controller
     public function edit($searchDate, $type)
     {
         $sessions_table = array();
-        $khesm;
-        $clients;
-   
+        $khesm=null;
+        $clients=null;
+        $results=null;
+
         if ($type == 'all') {
             $results = Sessions::with('cases', 'Printnotes')
             ->where('session_date', '=', $searchDate)
+                ->where('parent_id',getQuery())
             ->get();
         } else {
             $results = Sessions::with('cases', 'Printnotes')
                 ->where('session_date', '=', $searchDate)
+                ->where('parent_id',getQuery())
                 ->whereHas('cases', function ($q) use ($type) {
                     $q->where('to_whome', '=', $type);
                 })
@@ -101,7 +104,6 @@ class ReportsController extends Controller
         foreach ($results as $result) {
             $case = Cases::findOrFail($result->case_Id);
             $clients = $case->clients;
-
             foreach ($clients as $key => $client) {
                 if ($client->type == trans('site_lang.clients_client_type_khesm')) {
                     $khesm = $client;
@@ -123,11 +125,13 @@ class ReportsController extends Controller
             $results = Sessions::with('cases', 'Printnotes')
                 ->where('month', '=', $month)
                 ->where('year', '=', $year)
+                ->where('parent_id',getQuery())
                 ->get();
         } else {
             $results = Sessions::with('cases', 'Printnotes')
                 ->where('month', '=', $month)
                 ->where('year', '=', $year)
+                ->where('parent_id',getQuery())
                 ->whereHas('cases', function ($q) use ($type) {
                     $q->where('to_whome', '=', $type);
                 })
@@ -166,11 +170,13 @@ class ReportsController extends Controller
     {
         if ($type == 'all') {
             $data = Sessions::with('cases', 'Printnotes')
-                ->where('session_date', '=', $id)
+                ->where('session_date',  $id)
+                ->where('parent_id',getQuery())
                 ->get();
         } else {
             $data = Sessions::with('cases', 'Printnotes')
                 ->where('session_date', '=', $id)
+                ->where('parent_id',getQuery())
                 ->whereHas('cases', function ($q) use ($type) {
                     $q->where('to_whome', '=', $type);
                 })
@@ -198,11 +204,13 @@ class ReportsController extends Controller
         $data = Sessions::with('cases', 'Printnotes')
             ->where('month', '=', $month)
             ->where('year', '=', $year)
+            ->where('parent_id',getQuery())
             ->get();
     } else {
         $data = Sessions::with('cases', 'Printnotes')
             ->where('month', '=', $month)
             ->where('year', '=', $year)
+            ->where('parent_id',getQuery())
             ->whereHas('cases', function ($q) use ($type) {
                 $q->where('to_whome', '=', $type);
             })
