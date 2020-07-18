@@ -53,7 +53,7 @@
                                     <input type="hidden" name="id" id="id">
                                     <div class="row">
                                         <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group<?php echo e($errors->has('mokel')?' has-error':''); ?>">
+                                            <div class="form-group">
 
                                                 <select multiple="multiple" id="form-field-select-4"
                                                         id="mokel" name="mokel_name[]"
