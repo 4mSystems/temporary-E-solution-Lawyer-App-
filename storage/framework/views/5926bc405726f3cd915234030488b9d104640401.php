@@ -10,7 +10,7 @@
             </div>
             <div class="user-profile border-top padding-horizontal-10 block">
                 <div class="inline-block" style="margin-top: 20px;">
-                    <img src="<?php echo e(url('/images/avatar-1.jpg')); ?>" alt="">
+                    <img src="<?php echo e(url('/images/logo.jpeg')); ?>" alt="" width="50" height="50">
                 </div>
                 <div class="inline-block">
                     <h4 class="text-justify"> &nbsp;&nbsp; <?php echo e(Auth::user()->name); ?> </h4>
@@ -117,7 +117,7 @@
                                 <i class="fa fa-file-movie-o"></i>&nbsp;<span
                                     class="title"><?php echo e(trans('site_lang.side_ClientReservation')); ?></span>
                             </a>
-                        </li>
+                       </li>
 
                     </ul>
 
