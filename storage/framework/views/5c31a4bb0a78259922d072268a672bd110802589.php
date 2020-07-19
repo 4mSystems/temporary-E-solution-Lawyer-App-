@@ -39,10 +39,7 @@
             <div class="panel panel-white">
 
 
-                <div class="panel-body" style=' padding-top: 10px;
-                            padding-right: 15px;
-                             padding-left: 20px;
-                             '>
+                <div class="panel-body" >
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered   table-full-width"
                                id="PrintdailyTable">

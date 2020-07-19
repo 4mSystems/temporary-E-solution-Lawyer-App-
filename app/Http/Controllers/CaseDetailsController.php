@@ -128,7 +128,8 @@ class CaseDetailsController extends Controller
             $month = date('m', strtotime($request->session_date));
             $year = date('yy', strtotime($request->session_date));
             $case_Id = $request->case_Id;
-            $session = Sessions::create(array_merge($request->except('month', 'year', 'case_Id'), ['month' => $month, 'year' => $year, 'case_Id' => $case_Id]));
+            $parent_id = getQuery();
+            $session = Sessions::create(array_merge($request->except('month', 'year', 'case_Id','parent_id'), ['month' => $month, 'year' => $year, 'case_Id' => $case_Id,'parent_id'=>$parent_id]));
             $html = view('cases.session_item', compact('session'))->render();
             return response(['status' => true, 'result' => $html, 'msg' => trans('site_lang.public_success_text')]);
         }

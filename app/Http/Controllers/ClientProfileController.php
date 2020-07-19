@@ -56,6 +56,7 @@ class ClientProfileController extends Controller
         $data['user_id'] = auth()->user()->id;
         // dd( $data['user_id']);
         $data['client_id'] = $id;
+        $data['parent_id'] = getQuery();
         Client_Note::create($data);
         return response()->json(['success' => trans('site_lang.public_success_text')]);
     }
