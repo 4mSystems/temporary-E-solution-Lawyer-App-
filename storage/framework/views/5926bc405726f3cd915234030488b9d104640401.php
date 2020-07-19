@@ -10,7 +10,7 @@
             </div>
             <div class="user-profile border-top padding-horizontal-10 block">
                 <div class="inline-block" style="margin-top: 20px;">
-                    <img src="<?php echo e(url('/images/avatar-1.jpg')); ?>" alt="">
+                    <img src="<?php echo e(url('/images/logo.png')); ?>" alt="" width="50" height="50">
                 </div>
                 <div class="inline-block">
                     <h4 class="text-justify"> &nbsp;&nbsp; <?php echo e(Auth::user()->name); ?> </h4>
@@ -19,6 +19,11 @@
             </div>
             <!-- start: MAIN NAVIGATION MENU -->
             <ul class="main-navigation-menu">
+
+                <?php
+                    $user_type = auth()->user()->type;
+                    if($user_type != 'manager'){
+                ?>
                 <li class="active open">
                     <a href="<?php echo e(route('home')); ?>"><i class="fa fa-home"></i>&nbsp;&nbsp; <span
                             class="title"> <?php echo e(trans('site_lang.side_home')); ?> </span></a>
@@ -94,6 +99,18 @@
 
                 </li>
 
+                <?php
+                    }
+                ?>
+
+
+
+
+
+                <?php
+                    $user_type = auth()->user()->type;
+                    if($user_type == 'manager'){
+                ?>
                 <li>
 
                     <a href="javascript:void(0)"><i class="fa fa-file-excel-o"></i> &nbsp;<span
@@ -106,24 +123,26 @@
                                     class="title"><?php echo e(trans('site_lang.side_Packages')); ?></span>
                             </a>
                         </li>
-                        <li>
-                            <a href="<?php echo e(url('/MonthlyReport')); ?>">
-                                <i class="fa fa-file-movie-o"></i>&nbsp;<span
-                                    class="title"><?php echo e(trans('site_lang.side_packageClient')); ?></span>
-                            </a>
-                        </li>
+
+
+
+
+
+
                         <li>
                             <a href="<?php echo e(url('/subscribers')); ?>">
                                 <i class="fa fa-file-movie-o"></i>&nbsp;<span
                                     class="title"><?php echo e(trans('site_lang.side_ClientReservation')); ?></span>
                             </a>
-                        </li>
+                       </li>
 
                     </ul>
 
 
                 </li>
-
+                <?php
+                }
+                ?>
 
                 <li>
                     <a href="<?php echo e(route('logout')); ?>" type='submit' class="btn btn-sm log-out text-right"

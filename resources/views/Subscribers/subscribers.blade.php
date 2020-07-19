@@ -58,7 +58,7 @@
                                         <th class="center">{{trans('site_lang.subName')}}</th>
                                         <th class="center">{{trans('site_lang.subEmail')}}</th>
                                         <th class="center">{{trans('site_lang.subPhone')}}</th>
-                                        <th class="center">{{trans('site_lang.subAddress')}}</th>
+                                        <th class="center">{{trans('site_lang.clients_client_address')}}</th>
                                         <th class="center">{{trans('site_lang.subStatus')}}</th>
                                         <th class="center"></th>
                                     </tr>
