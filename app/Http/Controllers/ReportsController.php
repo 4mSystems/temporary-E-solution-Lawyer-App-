@@ -194,9 +194,10 @@ class ReportsController extends Controller
                 }
             }
         }
-        $pdf = PDF::loadView('Reports.DailyPDF', ['data' => $data, 'search_date' => $id, 'khesm' => $khesm, 'clients' => $clients]);
 
-        return $pdf->stream('My PDF' . 'pdf');
+//        $pdf = PDF::loadView('Reports.DailyPDF', ['data' => $data, 'search_date' => $id, 'khesm' => $khesm, 'clients' => $clients,'id'=>$id]);
+//        return $pdf->stream('daily.pdf');
+        return view('Reports.DailyPDF',compact('data','khesm','clients','id'));
     }
 
     public function pdfMonthexport($month, $year, $type)
@@ -228,9 +229,11 @@ class ReportsController extends Controller
             }
         }
     }
-    $pdf = PDF::loadView('Reports.MonthlyPDF', ['data' => $data, 'month' => $month, 'year' => $year, 'khesm' => $khesm, 'clients' => $clients]);
+//    $pdf = PDF::loadView('Reports.MonthlyPDF', ['data' => $data, 'month' => $month, 'year' => $year, 'khesm' => $khesm, 'clients' => $clients]);
+//
+//
+//    return $pdf->stream('My PDF' . 'pdf');
+        return view('Reports.MonthlyPDF',compact('data' , 'month', 'year', 'khesm' , 'clients'));
 
-
-    return $pdf->stream('My PDF' . 'pdf');
     }
 }

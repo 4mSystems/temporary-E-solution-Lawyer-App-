@@ -33,9 +33,7 @@
 
 <div class="row">
     <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
-        <div class="logo">
-            <img src="{{url('/images/logo.png') }}">
-        </div>
+
         <!-- start: LOGIN BOX -->
         <div class="box-login">
             <h3 class="text-bold">{{trans('site_lang.auth_cont_title')}}</h3>
