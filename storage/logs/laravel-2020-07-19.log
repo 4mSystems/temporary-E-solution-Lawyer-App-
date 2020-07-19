@@ -527,3 +527,7 @@
 #70 C:\\xampp\\htdocs\\temporary-E-solution-Lawyer-App-\\server.php(21): require_once('C:\\\\xampp\\\\htdocs...')
 #71 {main}
 "} 
+[2020-07-19 19:23:11] local.ERROR: Maximum execution time of 60 seconds exceeded {"userId":4,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\xampp\\htdocs\\temporary-E-solution-Lawyer-App-\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php:68)
+[stacktrace]
+#0 {main}
+"} 
