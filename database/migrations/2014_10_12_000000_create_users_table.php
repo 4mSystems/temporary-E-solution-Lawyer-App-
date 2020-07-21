@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
             $table->bigInteger('parent_id')->nullable();
             $table->string('password');
+            $table->string('api_token')->nullable();
             $table->string('name');
             $table->string('phone');
             $table->string('address');
