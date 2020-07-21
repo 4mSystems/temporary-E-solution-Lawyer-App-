@@ -175,15 +175,16 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        //maatwebsite
-        Maatwebsite\Excel\ExcelServiceProvider::class,
-        //jasper
-        PHPJasper\PHPJasperServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
-        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+//        //maatwebsite
+//        Maatwebsite\Excel\ExcelServiceProvider::class,
+//        //jasper
+//        PHPJasper\PHPJasperServiceProvider::class,
+//        Barryvdh\DomPDF\ServiceProvider::class,
+//        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         //Yajra
         Yajra\Datatables\DatatablesServiceProvider::class,
         Yajra\DataTables\ButtonsServiceProvider::class,
+        Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
     ],
 
     /*
@@ -235,12 +236,13 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         //maatWebsite
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
-        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
+//
+//        'PDF' => Barryvdh\DomPDF\Facade::class,
+//        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
         'Up' => App\Http\Controllers\Upload::class,
         //Yajra
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
     ],
 
 ];

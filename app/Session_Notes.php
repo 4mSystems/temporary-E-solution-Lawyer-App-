@@ -8,7 +8,7 @@ class Session_Notes extends Model
 {
     protected $table = 'session__notes';
 
-    protected $fillable = ['note', 'updated_by', 'status', 'session_Id'];
+    protected $fillable = ['note', 'updated_by', 'status', 'session_Id','parent_id'];
     protected $attributes = ['status' => 'No'];
 
     public function Session()

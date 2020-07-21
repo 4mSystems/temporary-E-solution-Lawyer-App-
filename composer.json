@@ -9,7 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.1.3",
-        "barryvdh/laravel-dompdf": "^0.8.6",
+         "carlos-meneses/laravel-mpdf": "2.1.3",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "geekcom/phpjasper-laravel": "^1.1",
@@ -18,8 +18,7 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7.1",
         "maatwebsite/excel": "^3.1",
-        "niklasravnsborg/laravel-pdf": "^4.0",
-        "php-ar/php-ar": "^2.0",
+         "php-ar/php-ar": "^2.0",
         "yajra/laravel-datatables": "1.5",
         "yajra/laravel-datatables-oracle": "~9.0"
     },

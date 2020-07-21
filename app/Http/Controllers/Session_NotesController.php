@@ -43,6 +43,7 @@ class Session_NotesController extends Controller
                 'note' => 'required',
                 'session_Id' => 'required',
             ]);
+            $data['parent_id'] = getQuery();
             Session_Notes::create($data);
             return response(['msg' => trans('site_lang.public_success_text')]);
         }

@@ -1,6 +1,6 @@
 var SVExamples = function() {
     "use strict";
-    //set variables	
+    //set variables
     var date = new Date(),
         dateToShow = date,
         calendar, $eventDetail, eventClass, eventCategory;
@@ -228,7 +228,7 @@ var SVExamples = function() {
         $(".form-event .all-day").bootstrapSwitch('destroy');
 
     };
-    // enables the edit form 
+    // enables the edit form
     var editEvent = function(el) {
         $(".close-new-event").off().on("click", function() {
             $(".back-subviews").trigger("click");
@@ -524,7 +524,7 @@ var SVExamples = function() {
             gender: 'M',
             permits: 'View and Edit',
             password: 'password',
-            avatar: "assets/images/avatar-1.jpg"
+            avatar: "assets/images/logo.jpeg"
         }, {
             firstName: 'Nicole',
             lastName: 'Bell',
@@ -556,7 +556,6 @@ var SVExamples = function() {
             gender: 'M',
             permits: 'View and Edit',
             password: 'password',
-            avatar: "assets/images/avatar-5.jpg"
         }];
     };
 
