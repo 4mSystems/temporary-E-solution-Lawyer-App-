@@ -44,22 +44,22 @@ class UsersController extends Controller
     public function store(Request $request)
     {
 
-        if ($request->ajax()) {
-            $data = $this->validate(request(), [
-                'name' => 'required',
-                'email' => 'required|unique:users,email|regex:/(.+)@(.+)\.(.+)/i',
-                'phone' => 'required|unique:users,phone',
-                'address' => 'required',
-                'password' => 'required',
-                'type' => 'required',
-                'cat_id' => 'required'
-            ]);
+        if ($request->ajax())             dd(getParentId());
+            $user = User::create($data);{
+                $data = $this->validate(request(), [
+                    'name' => 'required',
+                    'email' => 'required|unique:users,email|regex:/(.+)@(.+)\.(.+)/i',
+                    'phone' => 'required|unique:users,phone',
+                    'address' => 'required',
+                    'password' => 'required',
+                    'type' => 'required',
+                    'cat_id' => 'required'
+                ]);
 
-            $data['password'] = bcrypt(request('password'));
-            $data['parent_id'] = getParentId();
-            $data['package_id'] = auth()->user()->package_id;
-//            dd(getParentId());
-            $user = User::create($data);
+                $data['password'] = bcrypt(request('password'));
+                $data['parent_id'] = getParentId();
+                $data['package_id'] = auth()->user()->package_id;
+//
             $user_id = $user->id;
             $permissions['user_id'] = $user_id;
             $per = Permission::create($permissions);

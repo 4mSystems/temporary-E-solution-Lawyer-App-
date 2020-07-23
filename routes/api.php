@@ -43,3 +43,9 @@ Route::post('add_clientNote', 'API\ClientProfileController@store');
 Route::post('edit_clientNote', 'API\ClientProfileController@Edit_Note');
 Route::post('delete_clientNote', 'API\ClientProfileController@delte_Note');
 
+// Mohdareen Actions
+Route::post('mohdars', 'API\mohdareenApiController@index');
+Route::post('add_mohdars', 'API\mohdareenApiController@store');
+Route::post('edit_mohdars', 'API\mohdareenApiController@update');
+Route::post('delete_mohdar', 'API\mohdareenApiController@destroy');
+
