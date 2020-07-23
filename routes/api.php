@@ -18,13 +18,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Auth User
-Route::post('login', 'API\AuthController@login'); 
+Route::post('login', 'API\AuthController@login');
 Route::post('logout','API\AuthController@logout');
 
 
 // Users Actions
 Route::post('users', 'API\UsersController@index');
-Route::post('add_users', 'API\UsersController@store'); 
-Route::post('edit_users', 'API\UsersController@update'); 
+Route::post('add_users', 'API\UsersController@store');
+Route::post('edit_users', 'API\UsersController@update');
 Route::post('delete_user', 'API\UsersController@destroy');
+
+// Mohdareen Actions
+Route::post('mohdars', 'API\mohdareenApiController@index');
+Route::post('add_mohdars', 'API\mohdareenApiController@store');
+Route::post('edit_mohdars', 'API\mohdareenApiController@update');
+Route::post('delete_mohdar', 'API\mohdareenApiController@destroy');
 
