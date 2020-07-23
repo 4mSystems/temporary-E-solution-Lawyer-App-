@@ -91,7 +91,9 @@ class ClientsController extends Controller
                 'client_Address' => 'required',
                 'notes' => 'required',
                 'type' => 'required|in:client,khesm'
+
             ]);
+
             $data['cat_id'] = auth()->user()->cat_id;
             $data['parent_id'] = auth()->user()->parent_id;
         } else {

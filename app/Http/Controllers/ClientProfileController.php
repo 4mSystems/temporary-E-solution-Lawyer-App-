@@ -54,7 +54,6 @@ class ClientProfileController extends Controller
             'notes' => 'required',
         ]);
         $data['user_id'] = auth()->user()->id;
-        // dd( $data['user_id']);
         $data['client_id'] = $id;
         $data['parent_id'] = getQuery();
         Client_Note::create($data);
