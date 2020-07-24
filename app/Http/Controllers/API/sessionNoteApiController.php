@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
-use App\mohdr;
-use App\category;
 use App\Permission;
+use App\Session_Notes;
+use App\Sessions;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use Validator;
-class mohdareenApiController extends Controller
 
+class sessionNoteApiController extends Controller
 {
     public function sendResponse($code=null,$msg=null, $data = null)
     {
@@ -54,7 +53,7 @@ class mohdareenApiController extends Controller
     {
         $rules = [
             'api_token'=>'required',
-
+            'session_id'=>'required|exists:sessions,id',
         ];
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails())
@@ -70,19 +69,12 @@ class mohdareenApiController extends Controller
 
                 $permission = Permission::where('user_id', $user_id)->first();
 
-                $enabled = $permission->mohdreen;
+                $enabled = $permission->search_case;
                 if ($enabled == 'yes') {
-                    $mohdrs = null;
-                    $categories = null;
+                    $session_Notes = Session_Notes::where("session_id", "=", $request->session_id)->get();
 
 
-                    if ($user->parent_id !=null) {
-                        $mohdrs = mohdr::query()->where('parent_id',  $user->parent_id)->get();
-                    } else {
-                        $mohdrs = mohdr::query()->where('parent_id',  $user->id)->get();
-                    }
-
-                    return $this->sendResponse(200, ' ',array('mohdrs'=>$mohdrs));
+                    return $this->sendResponse(200, 'تم',array('session_Notes'=>$session_Notes));
                 } else {
                     return $this->sendResponse(403, 'لا تمتلك الصلاحيه لدخول هذه الصفحه',null);
                 }
@@ -92,25 +84,62 @@ class mohdareenApiController extends Controller
         }
     }
 
-
     public function store(Request $request)
     {
         $input = $request->all();
+        $validate = null;
+        $validate_api = $this->makeValidate($input,
+            [
+                'api_token' => 'required',
 
+            ]);
+        if (!is_array($validate_api)) {
+            $api_token = $request->input('api_token');
+            $auth_user = User::where('api_token', $api_token)->first();
+            if (empty($auth_user)) {
+                return $this->sendResponse(403, 'يرجى تسجيل الدخول ', null);
+            }
+            if ($auth_user->type == 'User') {
+                $validate = $this->makeValidate($input,
+                    [
+                        'note' => 'required',
+                        'session_Id' => 'required|exists:sessions,id',
+                    ]);
+                $input['parent_id'] = $auth_user->parent_id;
+            } else {
+                $validate = $this->makeValidate($input,
+                    [
+                        'note' => 'required',
+                        'session_Id' => 'required|exists:sessions,id',
+                    ]);
+                $input['parent_id'] = $auth_user->id;
+            }
+            if (!is_array($validate)) {
+                if ($request->note != null ) {
+                    $session_Notes = Session_Notes::create($input);
+
+                    return $this->sendResponse(200, 'تم الاضافه بنجاح', $session_Notes);
+                } else {
+
+                    return $this->sendResponse(403, "من فضلك قم بأختيار تاريخ الجلسة",null);
+                }
+
+            } else {
+                return $this->sendResponse(403, $validate, null);
+            }
+        }
+        return $this->sendResponse(403, "برجاء تسجيل الدخول", null);
+    }
+
+    public function changeNoteStatus(Request $request)
+    {
+
+        $input = $request->all();
+        $id = $request->note_id;
         $validate  =   $this->makeValidate($input,
             [
                 'api_token'=>'required',
-                'court_mohdareen' => 'required',
-                'paper_type' => 'required',
-                'deliver_data' => 'required',
-                'paper_Number' => 'required',
-                'session_Date' => 'required',
-                'mokel_Name' => 'required|exists:clients,client_name',
-                'khesm_Name' => 'required|exists:clients,client_name',
-                'case_number' => 'required',
-                'cat_id' => 'required|exists:categories,id',
-                'notes' => 'required',
-
+                'note_id'=>'required|exists:Session__Notes,id',
             ]);
 
         if (!is_array($validate))
@@ -122,45 +151,36 @@ class mohdareenApiController extends Controller
             {
                 return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
             }
-            if ($auth_user->parent_id !=null)
-            {
-                $input['parent_id'] = $auth_user->parent_id;
-            }
-            else
-            {
-                $input['parent_id'] = $auth_user->id;
-            }
-            $mohdr= mohdr::create($input);
 
-            return $this->sendResponse(200, 'تم الاضافه بنجاح' ,$mohdr);
+            $status = false;
+            $session_Notes = Session_Notes::find($id);
+            if ($session_Notes->status== trans('site_lang.public_no_text')) {
+                $session_Notes->status = "Yes";
+                $status = true;
+            } else {
+                $session_Notes->status = "No";
+                $status = false;
+            }
+            $session_Notes->update();
+
+            return $this->sendResponse(200, 'تم التعديل  الحالة بنجاح' ,$status);
         }
         else
         {
             return $this->sendResponse(403, $validate ,null);
         }
-
     }
 
-    public function update(Request $request)
+    public function edit(Request $request)
     {
 
         $input = $request->all();
-        $id = $request->moh_id;
-//        dd($request->moh_id);
+        $id = $request->note_Id;
         $validate  =   $this->makeValidate($input,
             [
                 'api_token'=>'required',
-                'moh_id'=>'required|exists:mohdrs,moh_id',
-                'court_mohdareen' => 'required',
-                'paper_type' => 'required',
-                'deliver_data' => 'required',
-                'paper_Number' => 'required',
-                'session_Date' => 'required',
-                'mokel_Name' => 'required',
-                'khesm_Name' => 'required',
-                'case_number' => 'required',
-                'cat_id' => 'required',
-                'notes' => 'required',
+                'note' => 'required',
+                'note_Id' => 'required|exists:Session__Notes,id',
 
             ]);
 
@@ -174,9 +194,9 @@ class mohdareenApiController extends Controller
                 return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
             }
 
-            $mohdrs = mohdr::find(intval($id))->update($input);
+            $session_Notes = Session_Notes::find(intval($id))->update($input);
 
-            return $this->sendResponse(200, 'تم التعديل  بنجاح' ,$mohdrs);
+            return $this->sendResponse(200, 'تم التعديل  بنجاح' ,$session_Notes);
         }
         else
         {
@@ -188,11 +208,10 @@ class mohdareenApiController extends Controller
     public function destroy(Request $request)
     {
         $input = $request->all();
-        $id = $request->moh_id;
         $validate  =   $this->makeValidate($input,
             [
                 'api_token'=>'required',
-                'moh_id'=>'required|exists:mohdrs,moh_id',
+                'session_note_id'=>'required|exists:Session__Notes,id',
 
             ]);
         if (!is_array($validate))
@@ -200,21 +219,32 @@ class mohdareenApiController extends Controller
 
             $api_token =$request->input('api_token');
             $auth_user = User::where('api_token',$api_token)->first();
+
             if(empty($auth_user))
             {
                 return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
             }
+            $user_id= $auth_user->id;
+            $permission = Permission::where('user_id', $user_id)->first();
 
-            $permission = Permission::where('user_id',$id)->delete();
-            $mohdr = mohdr::find(intval($id))->delete();
+            $enabled = $permission->search_case;
+            if ($enabled == 'yes') {
 
-            return $this->sendResponse(200, 'تم حذف المٌحضر  بنجاح' ,$mohdr);
+                $session_Note = Session_Notes::find(intval($request->session_note_id))->delete();
+
+                return $this->sendResponse(200, 'تم حذف ملاحظة الجلسة' ,$session_Note);
+            } else {
+                return $this->sendResponse(403, 'لا تمتلك الصلاحيه لدخول هذه الصفحه',null);
+            }
+
+
+
         }
         else
         {
             return $this->sendResponse(403, $validate ,null);
         }
 
-
     }
+
 }

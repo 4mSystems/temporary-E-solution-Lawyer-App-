@@ -86,7 +86,7 @@ class CasesController extends Controller
 
             if ($request->mokel_name != null && $request->khesm_name != null) {
                 $month = date('m', strtotime($request->first_session_date));
-                $year = date('yy', strtotime($request->first_session_date));
+                $year = date('Y', strtotime($request->first_session_date));
 //            // saving case data
                 $data['parent_id']=getQuery();
                 $case = Cases::create($data);
