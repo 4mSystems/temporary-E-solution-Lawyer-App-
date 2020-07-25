@@ -71,3 +71,5 @@ Route::post('deleteSessionNote', 'API\sessionNoteApiController@destroy');
 Route::post('editSessionNote', 'API\sessionNoteApiController@edit');
 Route::post('changeNoteStatus', 'API\sessionNoteApiController@changeNoteStatus');
 
+//Cases Attachment Actions
+Route::post('caseAttachment', 'API\attachmentApiController@index');
