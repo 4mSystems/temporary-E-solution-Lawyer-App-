@@ -22,6 +22,11 @@ class User extends Authenticatable
     public function getDuration(){
         return $this->hasOne('App\Package','id','package_id');
     }
+    public function  package_id(){
+
+        return $this->hasOne('App\Package','id','package_id');
+
+    }
 
     /**
      * The attributes that should be hidden for arrays.

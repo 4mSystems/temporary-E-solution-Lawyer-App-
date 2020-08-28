@@ -2,13 +2,13 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{{$id}}&nbsp; {{trans('site_lang.reports_print_daily_1')}}</title>
+    <title><?php echo e($id); ?>&nbsp; <?php echo e(trans('site_lang.reports_print_daily_1')); ?></title>
 
     <style>
         body {
             font-family: 'XBRiyaz', sans-serif;
         }
-        @media print {
+        @media  print {
             body {-webkit-print-color-adjust: exact;}
         }
         .invoice-box {
@@ -86,7 +86,7 @@
             font-weight: bold;
         }
 
-        @media only screen and (max-width: 600px) {
+        @media  only screen and (max-width: 600px) {
             .invoice-box table tr.top table td {
                 width: 100%;
                 display: block;
@@ -121,53 +121,54 @@
 <body>
 <div class="invoice-box">
     <div class="title">
-        <img src="{{url('/images/print_logo.png') }}" style="width:100%; max-width:50px;">
+        <img src="<?php echo e(url('/images/print_logo.png')); ?>" style="width:100%; max-width:50px;">
     </div>
     <div
         style="text-align:center;font-size: 30px;background-color: #8E9AA2;color: white; padding-top: 15px; padding-bottom: 15px;">
-        <hl class="center">{{$id}}&nbsp; {{trans('site_lang.reports_print_daily_1')}}</hl>
+        <hl class="center"><?php echo e($id); ?>&nbsp; <?php echo e(trans('site_lang.reports_print_daily_1')); ?></hl>
     </div>
     <br>
     <table cellpadding="0" cellspacing="0">
         <thead>
-        <th>{{trans('site_lang.mohdar_notes')}}</th>
-        <th>{{trans('site_lang.home_session_date')}}</th>
-        <th>{{trans('site_lang.add_case_court')}}</th>
-        <th>{{trans('site_lang.add_case_inventation_type')}}</th>
-        <th>{{trans('site_lang.add_case_circle_num')}}</th>
-        <th>{{trans('site_lang.home_session_case_number')}}</th>
-        <th>{{trans('site_lang.clients_client_type_khesm')}}</th>
-        <th>{{trans('site_lang.clients_client_type_client')}}</th>
+        <th><?php echo e(trans('site_lang.mohdar_notes')); ?></th>
+        <th><?php echo e(trans('site_lang.home_session_date')); ?></th>
+        <th><?php echo e(trans('site_lang.add_case_court')); ?></th>
+        <th><?php echo e(trans('site_lang.add_case_inventation_type')); ?></th>
+        <th><?php echo e(trans('site_lang.add_case_circle_num')); ?></th>
+        <th><?php echo e(trans('site_lang.home_session_case_number')); ?></th>
+        <th><?php echo e(trans('site_lang.clients_client_type_khesm')); ?></th>
+        <th><?php echo e(trans('site_lang.clients_client_type_client')); ?></th>
         <th>#</th>
         </thead>
         <tbody style="border: 1px solid black;">
-        @php
+        <?php
             $i=1;
-        @endphp
-        @if($data->count() > 0)
-        @foreach($data as $row)
+        ?>
+        <?php if($data->count() > 0): ?>
+        <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr class="item">
-                @if ($row->Printnotes ==null)
+                <?php if($row->Printnotes ==null): ?>
                     <td class="center">----</td>
-                @else
-                    <td class="center">{{$row->Printnotes->note}}</td>
-                @endif
-                <td class="center">{{$row->session_date}}</td>
-                <td class="center">{{$row->cases->court}}</td>
-                <td class="center">{{$row->cases->inventation_type}}</td>
-                <td class="center">{{$row->cases->circle_num}}</td>
-                <td class="center">{{$row->cases->invetation_num}}</td>
-                <td class="center">{{$khesm->client_Name}}</td>
-                <td class="center">{{$clients->client_Name}}</td>
+                <?php else: ?>
+                    <td class="center"><?php echo e($row->Printnotes->note); ?></td>
+                <?php endif; ?>
+                <td class="center"><?php echo e($row->session_date); ?></td>
+                <td class="center"><?php echo e($row->cases->court); ?></td>
+                <td class="center"><?php echo e($row->cases->inventation_type); ?></td>
+                <td class="center"><?php echo e($row->cases->circle_num); ?></td>
+                <td class="center"><?php echo e($row->cases->invetation_num); ?></td>
+                <td class="center"><?php echo e($khesm->client_Name); ?></td>
+                <td class="center"><?php echo e($clients->client_Name); ?></td>
                 <td class="center">
-                    {{$i}}
+                    <?php echo e($i); ?>
+
                 </td>
             </tr>
-            @php
+            <?php
                 $i=$i+1;
-            @endphp
-        @endforeach
-        @endif
+            ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
         </tbody>
     </table>
 </div>
@@ -176,3 +177,4 @@
 </script>
 </body>
 </html>
+<?php /**PATH C:\xampp\htdocs\temporary-E-solution-Lawyer-App-\resources\views/Reports/DailyPDF.blade.php ENDPATH**/ ?>

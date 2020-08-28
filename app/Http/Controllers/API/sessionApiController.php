@@ -149,7 +149,7 @@ class sessionApiController extends Controller
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails())
         {
-            return $this->sendResponse(401, 'يرجى تسجيل الدخول ',null);
+            return $this->sendResponse(401, 'يرجى التأكد من البيانات ',null);
         }
         else
         {
