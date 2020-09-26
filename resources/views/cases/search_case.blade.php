@@ -215,9 +215,6 @@
 
                                                                     class="fa fa-pencil edit-user-info"></i></a>
                                                         </td>
-
-                                                        </td>
-
                                                     </tr>
                                                     <tr>
                                                         <td>{{trans('site_lang.add_case_inventation_type')}}</td>

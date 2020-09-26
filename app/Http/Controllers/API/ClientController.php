@@ -46,11 +46,7 @@ class ClientController extends Controller
         }
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $rules = [
@@ -168,13 +164,6 @@ class ClientController extends Controller
         return $this->sendResponse(403, "برجاء تسجيل الدخول", null);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         // if Type == User -> cannot Edit ...

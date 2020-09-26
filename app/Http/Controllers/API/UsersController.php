@@ -47,12 +47,6 @@ class UsersController extends Controller
         }
     }
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $rules = [
@@ -87,7 +81,7 @@ class UsersController extends Controller
 
                     return $this->sendResponse(200, ' ', array('users' => $users, 'categories' => $categories));
                 } else {
-                    return $this->sendResponse(403, 'لا تتملك الصلاحيه لدخول هذه الصفحه', null);
+                    return $this->sendResponse(403, 'لا تمتلك الصلاحيه لدخول هذه الصفحه', null);
                 }
             } else {
                 return $this->sendResponse(403, 'يرجى تسجيل الدخول ', null);
@@ -95,22 +89,6 @@ class UsersController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $input = $request->all();
@@ -154,12 +132,6 @@ class UsersController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //

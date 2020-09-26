@@ -149,6 +149,7 @@ return [
     'package_edit_client_text' => 'تعديل بيانات العرض',
     //subscribers
     'subName' => 'الاسم',
+    'subPackage' => 'اسم العرض',
     'subEmail' => 'البريد الالكترونى',
     'subPhone' => 'رقم الهاتف',
     'subStatus' => 'الحالة',

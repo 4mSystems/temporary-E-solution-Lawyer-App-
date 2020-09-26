@@ -168,6 +168,8 @@ class ReportsController extends Controller
 
     public function pdfexport($id, $type)
     {
+        $khesm=null;
+        $clients=null;
         if ($type == 'all') {
             $data = Sessions::with('cases', 'Printnotes')
                 ->where('session_date',  $id)
@@ -182,6 +184,8 @@ class ReportsController extends Controller
                 })
                 ->get();
         }
+
+        if($data->count() > 0){
         foreach ($data as $result) {
             $case = Cases::findOrFail($result->case_Id);
             $clients = $case->clients;
@@ -195,13 +199,19 @@ class ReportsController extends Controller
             }
         }
 
-//        $pdf = PDF::loadView('Reports.DailyPDF', ['data' => $data, 'search_date' => $id, 'khesm' => $khesm, 'clients' => $clients,'id'=>$id]);
-//        return $pdf->stream('daily.pdf');
         return view('Reports.DailyPDF',compact('data','khesm','clients','id'));
+    }else{
+        
+        return view('Reports.DailyPDF',compact('data','khesm','clients','id'));
+    }
     }
 
     public function pdfMonthexport($month, $year, $type)
-    {if ($type == 'all') {
+    {
+        $khesm=null;
+        $clients=null;
+   
+        if ($type == 'all') {
         $data = Sessions::with('cases', 'Printnotes')
             ->where('month', '=', $month)
             ->where('year', '=', $year)
@@ -217,6 +227,8 @@ class ReportsController extends Controller
             })
             ->get();
     }
+    if($data->count() > 0){
+
     foreach ($data as $result) {
         $case = Cases::findOrFail($result->case_Id);
         $clients = $case->clients;
@@ -229,11 +241,11 @@ class ReportsController extends Controller
             }
         }
     }
-//    $pdf = PDF::loadView('Reports.MonthlyPDF', ['data' => $data, 'month' => $month, 'year' => $year, 'khesm' => $khesm, 'clients' => $clients]);
-//
-//
-//    return $pdf->stream('My PDF' . 'pdf');
+    
         return view('Reports.MonthlyPDF',compact('data' , 'month', 'year', 'khesm' , 'clients'));
-
+    }else{
+        
+        return view('Reports.MonthlyPDF',compact('data' , 'month', 'year', 'khesm' , 'clients'));
+    }
     }
 }

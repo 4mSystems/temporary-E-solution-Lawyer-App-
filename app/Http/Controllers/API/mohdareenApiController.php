@@ -79,7 +79,7 @@ class mohdareenApiController extends Controller
 
                     return $this->sendResponse(200, ' ', array('mohdrs' => $mohdrs));
                 } else {
-                    return $this->sendResponse(403, 'لا تتملك الصلاحيه لدخول هذه الصفحه', null);
+                    return $this->sendResponse(403, 'لا تمتلك الصلاحيه لدخول هذه الصفحه',null);
                 }
             } else {
                 return $this->sendResponse(403, 'يرجى تسجيل الدخول ', null);

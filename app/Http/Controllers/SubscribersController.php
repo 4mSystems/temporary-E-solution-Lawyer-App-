@@ -22,9 +22,54 @@ class SubscribersController extends Controller
         if ($user_type == 'manager') {
             if (request()->ajax()) {
 
-                return datatables()->of(User::where('parent_id', null)->where('type', '!=', 'manager')->get())
+                return datatables()->of(User::where('parent_id', null)->where('type', '!=', 'manager')
+                    ->with('package_id')
+                    ->get())
                     ->addColumn('status', function ($data) {
-                        if ($data->status == trans('site_lang.statusDeactive')) {
+                                 if ($data->status == trans('site_lang.statusDeactive')) {
+                            $html = '<p class="btn btn-sm" data-user-id="' . $data->id . '" id="change-user-status">
+                            <span class="label label-danger text-bold"> ' . $data->status . '</span></p>';
+                        } else if ($data->status == trans('site_lang.statusDemo')) {
+                            $html = '<p class="btn btn-sm" data-user-Id="' . $data->id . '" id="change-user-status">
+                            <span class="label label-warning text-bold"> ' . $data->status . '</span></p>';
+                        } else {
+                            $html = '<p class="btn btn-sm" data-user-Id="' . $data->id . '" id="change-user-status">
+                            <span class="label label-success text-bold"> ' . $data->status . '</span></p>';
+                        }
+
+                        return $html;
+                    })
+                    ->addColumn('action', function ($data) {
+                        $button = '<button data-client-id="' . $data->id . '" id="editClient" class="btn btn-xs btn-blue tooltips" ><i
+                                    class="fa fa-edit"></i>&nbsp;&nbsp;' . trans('site_lang.public_edit_btn_text') . '</button>';
+                        $button .= '&nbsp;&nbsp;';
+                        $button .= '<button data-client-id="' . $data->id . '" id="deleteClient"  class="btn btn-xs btn-red tooltips" ><i
+                                    class="fa fa-times fa fa-white"></i>&nbsp;&nbsp;' . trans('site_lang.public_delete_text') . '</button>';
+                        return $button;
+                    })
+                    ->rawColumns(['status', 'action'])
+                    ->make(true);
+            }
+            $packages = Package::all();
+            return view('Subscribers.subscribers', compact('packages'));
+        } else {
+            return redirect(url('home'));
+
+        }
+    }
+    public function search()
+    {
+        dd('whaaaaat');
+        $user_type = auth()->user()->type;
+        if ($user_type == 'manager') {
+            if (request()->ajax()) {
+
+                return datatables()->of(User::where('parent_id', null)
+                    ->where('type', '!=', 'manager')
+                    ->with('package_id')
+                    ->get())
+                    ->addColumn('status', function ($data) {
+                                 if ($data->status == trans('site_lang.statusDeactive')) {
                             $html = '<p class="btn btn-sm" data-user-id="' . $data->id . '" id="change-user-status">
                             <span class="label label-danger text-bold"> ' . $data->status . '</span></p>';
                         } else if ($data->status == trans('site_lang.statusDemo')) {
