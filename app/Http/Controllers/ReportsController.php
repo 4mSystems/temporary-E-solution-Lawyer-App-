@@ -9,6 +9,7 @@ use App\Sessions;
 use App\category;
 use Illuminate\Support\Facades\DB;
 use PDF;
+
 // use Dompdf\Dompdf;
 
 
@@ -33,10 +34,10 @@ class ReportsController extends Controller
         $user_id = auth()->user()->id;
         $permission = Permission::where('user_id', $user_id)->first();
         $enabled = $permission->daily_report;
-        $categories = category::select('id', 'name')->where('parent_id',getQuery())->get();
+        $categories = category::select('id', 'name')->where('parent_id', getQuery())->get();
 
         if ($enabled == 'yes') {
-            return view('Reports.CasesDailyReport',compact('categories'));
+            return view('Reports.CasesDailyReport', compact('categories'));
         } else {
             return redirect(url('home'));
         }
@@ -46,10 +47,10 @@ class ReportsController extends Controller
     {
         $user_id = auth()->user()->id;
         $permission = Permission::where('user_id', $user_id)->first();
-        $categories = category::select('id', 'name')->where('parent_id',getQuery())->get();
+        $categories = category::select('id', 'name')->where('parent_id', getQuery())->get();
         $enabled = $permission->monthly_report;
         if ($enabled == 'yes') {
-            return view('Reports.CasesMonthlyReport',compact('categories'));
+            return view('Reports.CasesMonthlyReport', compact('categories'));
 
         } else {
             return redirect(url('home'));
@@ -82,19 +83,19 @@ class ReportsController extends Controller
     public function edit($searchDate, $type)
     {
         $sessions_table = array();
-        $khesm=null;
-        $clients=null;
-        $results=null;
+        $khesm = null;
+        $clients = null;
+        $results = null;
 
         if ($type == 'all') {
             $results = Sessions::with('cases', 'Printnotes')
-            ->where('session_date', '=', $searchDate)
-                ->where('parent_id',getQuery())
-            ->get();
+                ->where('session_date', '=', $searchDate)
+                ->where('parent_id', getQuery())
+                ->get();
         } else {
             $results = Sessions::with('cases', 'Printnotes')
                 ->where('session_date', '=', $searchDate)
-                ->where('parent_id',getQuery())
+                ->where('parent_id', getQuery())
                 ->whereHas('cases', function ($q) use ($type) {
                     $q->where('to_whome', '=', $type);
                 })
@@ -125,13 +126,13 @@ class ReportsController extends Controller
             $results = Sessions::with('cases', 'Printnotes')
                 ->where('month', '=', $month)
                 ->where('year', '=', $year)
-                ->where('parent_id',getQuery())
+                ->where('parent_id', getQuery())
                 ->get();
         } else {
             $results = Sessions::with('cases', 'Printnotes')
                 ->where('month', '=', $month)
                 ->where('year', '=', $year)
-                ->where('parent_id',getQuery())
+                ->where('parent_id', getQuery())
                 ->whereHas('cases', function ($q) use ($type) {
                     $q->where('to_whome', '=', $type);
                 })
@@ -170,13 +171,13 @@ class ReportsController extends Controller
     {
         if ($type == 'all') {
             $data = Sessions::with('cases', 'Printnotes')
-                ->where('session_date',  $id)
-                ->where('parent_id',getQuery())
+                ->where('session_date', $id)
+                ->where('parent_id', getQuery())
                 ->get();
         } else {
             $data = Sessions::with('cases', 'Printnotes')
                 ->where('session_date', '=', $id)
-                ->where('parent_id',getQuery())
+                ->where('parent_id', getQuery())
                 ->whereHas('cases', function ($q) use ($type) {
                     $q->where('to_whome', '=', $type);
                 })
@@ -197,43 +198,44 @@ class ReportsController extends Controller
 
 //        $pdf = PDF::loadView('Reports.DailyPDF', ['data' => $data, 'search_date' => $id, 'khesm' => $khesm, 'clients' => $clients,'id'=>$id]);
 //        return $pdf->stream('daily.pdf');
-        return view('Reports.DailyPDF',compact('data','khesm','clients','id'));
+        return view('Reports.DailyPDF', compact('data', 'khesm', 'clients', 'id'));
     }
 
     public function pdfMonthexport($month, $year, $type)
-    {if ($type == 'all') {
-        $data = Sessions::with('cases', 'Printnotes')
-            ->where('month', '=', $month)
-            ->where('year', '=', $year)
-            ->where('parent_id',getQuery())
-            ->get();
-    } else {
-        $data = Sessions::with('cases', 'Printnotes')
-            ->where('month', '=', $month)
-            ->where('year', '=', $year)
-            ->where('parent_id',getQuery())
-            ->whereHas('cases', function ($q) use ($type) {
-                $q->where('to_whome', '=', $type);
-            })
-            ->get();
-    }
-    foreach ($data as $result) {
-        $case = Cases::findOrFail($result->case_Id);
-        $clients = $case->clients;
-
-        foreach ($clients as $key => $client) {
-            if ($client->type == trans('site_lang.clients_client_type_khesm')) {
-                $khesm = $client;
-            } else {
-                $clients = $client;
-            }
+    {
+        if ($type == 'all') {
+            $data = Sessions::with('cases', 'Printnotes')
+                ->where('month', '=', $month)
+                ->where('year', '=', $year)
+                ->where('parent_id', getQuery())
+                ->get();
+        } else {
+            $data = Sessions::with('cases', 'Printnotes')
+                ->where('month', '=', $month)
+                ->where('year', '=', $year)
+                ->where('parent_id', getQuery())
+                ->whereHas('cases', function ($q) use ($type) {
+                    $q->where('to_whome', '=', $type);
+                })
+                ->get();
         }
-    }
+
+        foreach ($data as $result) {
+            $case = Cases::findOrFail($result->case_Id);
+            $clients = $case->clients;
+            foreach ($clients as $key => $client) {
+                if ($client->type == trans('site_lang.clients_client_type_khesm')) {
+                    $khesm = $client;
+                } else {
+                    $clients = $client;
+                }
+            }
+
+
+        }
 //    $pdf = PDF::loadView('Reports.MonthlyPDF', ['data' => $data, 'month' => $month, 'year' => $year, 'khesm' => $khesm, 'clients' => $clients]);
-//
-//
 //    return $pdf->stream('My PDF' . 'pdf');
-        return view('Reports.MonthlyPDF',compact('data' , 'month', 'year', 'khesm' , 'clients'));
+        return view('Reports.MonthlyPDF', compact('data', 'month', 'year', 'khesm', 'clients'));
 
     }
 }

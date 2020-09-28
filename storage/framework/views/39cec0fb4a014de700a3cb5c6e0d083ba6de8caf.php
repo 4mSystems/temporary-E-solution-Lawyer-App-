@@ -1,21 +1,20 @@
-@extends('welcome')
-@section('styles')
-    <link href="{{url('/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css') }}" rel="stylesheet"
+<?php $__env->startSection('styles'); ?>
+    <link href="<?php echo e(url('/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css')); ?>" rel="stylesheet"
           type="text/css"/>
-    <link rel="stylesheet" href="{{url('/plugins/jQuery-Tags-Input/jquery.tagsinput.css')}}">
-    <link rel="stylesheet" href="{{url('/plugins/select2/select2.css')}}">
-    <link rel="stylesheet" href="{{url('/plugins/bootstrap-select/bootstrap-select.min.css')}}">
-    <link rel="stylesheet" href="{{url('/plugins/datepicker/css/datepicker.css')}}">
-    <link rel="stylesheet" href="{{url('/plugins/DataTables/media/css/DT_bootstrap.css')}}">
-    <link rel="stylesheet" href="{{url('/plugins/ladda-bootstrap/dist/ladda-themeless.min.css')}}">
-    <link rel="stylesheet" href="{{url('/plugins/ladda-bootstrap/dist/ladda.min.css')}}">
-    <link rel="stylesheet" href="{{url('/plugins/bootstrap-social-buttons/bootstrap-social.css')}}">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/jQuery-Tags-Input/jquery.tagsinput.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/select2/select2.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/bootstrap-select/bootstrap-select.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/datepicker/css/datepicker.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/DataTables/media/css/DT_bootstrap.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/ladda-bootstrap/dist/ladda-themeless.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/ladda-bootstrap/dist/ladda.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('/plugins/bootstrap-social-buttons/bootstrap-social.css')); ?>">
 
-    <link href="{{url('/plugins/bootstrap-modal/css/bootstrap-modal.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo e(url('/plugins/bootstrap-modal/css/bootstrap-modal.css')); ?>" rel="stylesheet" type="text/css"/>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="main-container inner">
         <!-- start: PAGE -->
         <div class="main-content">
@@ -26,7 +25,7 @@
                 <div class="toolbar row" style="direction:rtl;">
                     <div class="col-sm-12 hidden-xs">
                         <div class="page-header">
-                            <h1>{{trans('site_lang.side_home')}} <small>{{trans('site_lang.side_welcome')}}</small></h1>
+                            <h1><?php echo e(trans('site_lang.side_home')); ?> <small><?php echo e(trans('site_lang.side_welcome')); ?></small></h1>
                         </div>
                     </div>
                 </div>
@@ -42,26 +41,26 @@
                                     <i class="fa fa-users fa-2x icon-big"></i>
                                 </div>
                                 <div class="padding-20 core-content">
-                                    <h3 class="text-bold">{{trans('site_lang.side_users')}}</h3>
+                                    <h3 class="text-bold"><?php echo e(trans('site_lang.side_users')); ?></h3>
                                     <span
-                                        class="text-bold"> # {{$users->count()}} </span>
+                                        class="text-bold"> # <?php echo e($users->count()); ?> </span>
                                 </div>
                             </div>
                             <div class="panel-footer clearfix no-padding">
-                                <a href="{{url('users')}}"
+                                <a href="<?php echo e(url('users')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-green"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.home_more_options')}}"><i
+                                   title="<?php echo e(trans('site_lang.home_more_options')); ?>"><i
                                         class="fa fa-cog"></i></a>
-                                <a href="{{url('users')}}"
+                                <a href="<?php echo e(url('users')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-blue"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.home_add_user')}}"><i
+                                   title="<?php echo e(trans('site_lang.home_add_user')); ?>"><i
                                         class="fa fa-plus"></i></a>
-                                <a href="{{url('users')}}"
+                                <a href="<?php echo e(url('users')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-red"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.home_see_more')}}"><i
+                                   title="<?php echo e(trans('site_lang.home_see_more')); ?>"><i
                                         class="fa fa-chevron-right"></i></a>
                             </div>
                         </div>
@@ -73,26 +72,26 @@
                                     <i class="fa fa-desktop fa-2x icon-big"></i>
                                 </div>
                                 <div class="padding-20 core-content">
-                                    <h3 class="text-bold">{{trans('site_lang.side_cases')}}</h3>
+                                    <h3 class="text-bold"><?php echo e(trans('site_lang.side_cases')); ?></h3>
                                     <span
-                                        class="text-bold"> #{{$cases->count()}} </span>
+                                        class="text-bold"> #<?php echo e($cases->count()); ?> </span>
                                 </div>
                             </div>
                             <div class="panel-footer clearfix no-padding">
-                                <a href="{{url('caseDetails')}}"
+                                <a href="<?php echo e(url('caseDetails')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-green"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.home_more_options')}}"><i
+                                   title="<?php echo e(trans('site_lang.home_more_options')); ?>"><i
                                         class="fa fa-cog"></i></a>
-                                <a href="{{url('addCase')}}"
+                                <a href="<?php echo e(url('addCase')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-blue"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.side_add_case')}}"><i
+                                   title="<?php echo e(trans('site_lang.side_add_case')); ?>"><i
                                         class="fa fa-plus"></i></a>
-                                <a href="{{url('caseDetails')}}"
+                                <a href="<?php echo e(url('caseDetails')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-red"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.home_see_more')}}"><i
+                                   title="<?php echo e(trans('site_lang.home_see_more')); ?>"><i
                                         class="fa fa-chevron-right"></i></a>
                             </div>
                         </div>
@@ -105,26 +104,26 @@
                                     <i class="fa fa-shopping-cart fa-2x icon-big"></i>
                                 </div>
                                 <div class="padding-20 core-content">
-                                    <h3 class="text-bold">{{trans('site_lang.search_case_sessions')}}</h3>
+                                    <h3 class="text-bold"><?php echo e(trans('site_lang.search_case_sessions')); ?></h3>
                                     <span
-                                        class="text-bold">#{{$sessions->count()}}</span>
+                                        class="text-bold">#<?php echo e($sessions->count()); ?></span>
                                 </div>
                             </div>
                             <div class="panel-footer clearfix no-padding">
-                                <a href="{{url('caseDetails')}}"
+                                <a href="<?php echo e(url('caseDetails')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-green"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.home_more_options')}}"><i
+                                   title="<?php echo e(trans('site_lang.home_more_options')); ?>"><i
                                         class="fa fa-cog"></i></a>
-                                <a href="{{url('caseDetails')}}"
+                                <a href="<?php echo e(url('caseDetails')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-blue"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.mohdar_add_mohdar')}}"><i
+                                   title="<?php echo e(trans('site_lang.mohdar_add_mohdar')); ?>"><i
                                         class="fa fa-plus"></i></a>
-                                <a href="{{url('caseDetails')}}"
+                                <a href="<?php echo e(url('caseDetails')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-red"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.home_see_more')}}"><i
+                                   title="<?php echo e(trans('site_lang.home_see_more')); ?>"><i
                                         class="fa fa-chevron-right"></i></a>
                             </div>
                         </div>
@@ -137,26 +136,26 @@
                                     <i class="fa fa-shopping-cart fa-2x icon-big"></i>
                                 </div>
                                 <div class="padding-20 core-content">
-                                    <h3 class="text-bold">{{trans('site_lang.side_mohdar')}}</h3>
+                                    <h3 class="text-bold"><?php echo e(trans('site_lang.side_mohdar')); ?></h3>
                                     <span
-                                        class="text-bold">#{{$mohdreen->count()}}</span>
+                                        class="text-bold">#<?php echo e($mohdreen->count()); ?></span>
                                 </div>
                             </div>
                             <div class="panel-footer clearfix no-padding">
-                                <a href="{{url('mohdareen')}}"
+                                <a href="<?php echo e(url('mohdareen')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-green"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.home_more_options')}}"><i
+                                   title="<?php echo e(trans('site_lang.home_more_options')); ?>"><i
                                         class="fa fa-cog"></i></a>
-                                <a href="{{url('mohdareen')}}"
+                                <a href="<?php echo e(url('mohdareen')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-blue"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.mohdar_add_mohdar')}}"><i
+                                   title="<?php echo e(trans('site_lang.mohdar_add_mohdar')); ?>"><i
                                         class="fa fa-plus"></i></a>
-                                <a href="{{url('mohdareen')}}"
+                                <a href="<?php echo e(url('mohdareen')); ?>"
                                    class="col-xs-4 padding-10 text-center text-white tooltips partition-red"
                                    data-toggle="tooltip" data-placement="top"
-                                   title="{{trans('site_lang.home_see_more')}}"><i
+                                   title="<?php echo e(trans('site_lang.home_see_more')); ?>"><i
                                         class="fa fa-chevron-right"></i></a>
                             </div>
                         </div>
@@ -166,7 +165,7 @@
                             <!-- start: TABLE WITH IMAGES PANEL -->
                             <div class="panel panel-white">
                                 <div class="panel-heading">
-                                    <h5 class="text-bold">{{trans('site_lang.home_sessions_coming')}}</h5>
+                                    <h5 class="text-bold"><?php echo e(trans('site_lang.home_sessions_coming')); ?></h5>
                                 </div>
                                 <div class="panel-body">
                                     <table class="table table-striped table-bordered table-hover table-full-width"
@@ -175,28 +174,28 @@
                                         <tr>
                                             <th scope="col" class="hidden-xs center">#</th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.home_session_date')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.home_session_date')); ?></th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.home_session_status')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.home_session_status')); ?></th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.home_session_month')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.home_session_month')); ?></th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.home_session_case_number')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.home_session_case_number')); ?></th>
 
 
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($session as $session)
+                                        <?php $__currentLoopData = $session; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $session): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
-                                                <th scope="row" class="hidden-xs center">{{$session->id}}</th>
-                                                <td class="hidden-xs center">{{$session->session_date}}</td>
-                                                <td class="hidden-xs center">{{$session->status}}</td>
-                                                <td class="hidden-xs center">{{$session->month}}</td>
-                                                <td class="hidden-xs center">{{$session->case_Id}}</td>
+                                                <th scope="row" class="hidden-xs center"><?php echo e($session->id); ?></th>
+                                                <td class="hidden-xs center"><?php echo e($session->session_date); ?></td>
+                                                <td class="hidden-xs center"><?php echo e($session->status); ?></td>
+                                                <td class="hidden-xs center"><?php echo e($session->month); ?></td>
+                                                <td class="hidden-xs center"><?php echo e($session->case_Id); ?></td>
 
                                             </tr>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -211,7 +210,7 @@
                             <!-- start: TABLE WITH IMAGES PANEL -->
                             <div class="panel panel-white">
                                 <div class="panel-heading">
-                                    <h5 class="text-bold">{{trans('site_lang.home_session_missing')}}</h5>
+                                    <h5 class="text-bold"><?php echo e(trans('site_lang.home_session_missing')); ?></h5>
                                 </div>
                                 <div class="panel-body">
 
@@ -222,28 +221,28 @@
                                         <tr>
                                             <th scope="col" class="hidden-xs center">#</th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.home_session_date')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.home_session_date')); ?></th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.home_session_status')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.home_session_status')); ?></th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.home_session_month')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.home_session_month')); ?></th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.home_session_case_number')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.home_session_case_number')); ?></th>
 
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($sessionNo as $sessionNo)
+                                        <?php $__currentLoopData = $sessionNo; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sessionNo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
-                                                <th scope="row" class="hidden-xs center">{{$sessionNo->id}}</th>
-                                                <td class="hidden-xs center">{{$sessionNo->session_date}}</td>
-                                                <td class="hidden-xs center">{{$sessionNo->status}}</td>
-                                                <td class="hidden-xs center">{{$sessionNo->month}}</td>
-                                                <td class="hidden-xs center">{{$sessionNo->case_Id}}</td>
+                                                <th scope="row" class="hidden-xs center"><?php echo e($sessionNo->id); ?></th>
+                                                <td class="hidden-xs center"><?php echo e($sessionNo->session_date); ?></td>
+                                                <td class="hidden-xs center"><?php echo e($sessionNo->status); ?></td>
+                                                <td class="hidden-xs center"><?php echo e($sessionNo->month); ?></td>
+                                                <td class="hidden-xs center"><?php echo e($sessionNo->case_Id); ?></td>
 
 
                                             </tr>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </tbody>
                                     </table>
 
@@ -259,7 +258,7 @@
                             <!-- start: TABLE WITH IMAGES PANEL -->
                             <div class="panel panel-white">
                                 <div class="panel-heading">
-                                    <h5 class="text-bold">{{trans('site_lang.side_mohdar')}}</h5>
+                                    <h5 class="text-bold"><?php echo e(trans('site_lang.side_mohdar')); ?></h5>
                                 </div>
                                 <div class="panel-body">
 
@@ -269,34 +268,34 @@
                                         <tr>
                                             <th scope="col" class="hidden-xs center">#</th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.mohdar_court')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.mohdar_court')); ?></th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.mohdar_paper_type')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.mohdar_paper_type')); ?></th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.home_session_date')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.home_session_date')); ?></th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.home_session_case_number')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.home_session_case_number')); ?></th>
                                             <th scope="col"
-                                                class="hidden-xs center">{{trans('site_lang.home_see_more')}}</th>
+                                                class="hidden-xs center"><?php echo e(trans('site_lang.home_see_more')); ?></th>
 
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($mohder as $mohder)
+                                        <?php $__currentLoopData = $mohder; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mohder): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
-                                                <th scope="row" class="hidden-xs center">{{$mohder->moh_Id}}</th>
-                                                <td class="hidden-xs center">{{$mohder->court_mohdareen}}</td>
-                                                <td class="hidden-xs center">{{$mohder->paper_type}}</td>
-                                                <td class="hidden-xs center">{{$mohder->session_Date}}</td>
-                                                <td class="hidden-xs center">{{$mohder->case_number}}</td>
+                                                <th scope="row" class="hidden-xs center"><?php echo e($mohder->moh_Id); ?></th>
+                                                <td class="hidden-xs center"><?php echo e($mohder->court_mohdareen); ?></td>
+                                                <td class="hidden-xs center"><?php echo e($mohder->paper_type); ?></td>
+                                                <td class="hidden-xs center"><?php echo e($mohder->session_Date); ?></td>
+                                                <td class="hidden-xs center"><?php echo e($mohder->case_number); ?></td>
                                                 <td class="hidden-xs center"><a id="showMohdar"
                                                                                 class="btn btn-xs btn-blue tooltips"
                                                                                 data-placement="top"
                                                                                 data-original-title="show"
-                                                                                data-moh-Id="{{$mohder->moh_Id}}"><i
+                                                                                data-moh-Id="<?php echo e($mohder->moh_Id); ?>"><i
                                                             class="fa fa-eye"></i></a></td>
                                             </tr>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -400,7 +399,7 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group{{$errors->has('notes')?' has-error':''}}">
+                            <div class="form-group<?php echo e($errors->has('notes')?' has-error':''); ?>">
                                 <strong>
                                     الملاحظات
                                 </strong>
@@ -428,16 +427,17 @@
 
     <!-- modal session note -->
 
-@endsection
-@section('scripts')
-    <script src="{{url('public/plugins/toastr/toastr.js') }}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+    <script src="<?php echo e(url('public/plugins/toastr/toastr.js')); ?>"></script>
 
     <script>
 
         $(document).ready(function () {
             $(document).on('click', '#showMohdar', function () {
                 var id = $(this).data('moh-Id');
-                 $.ajax({
+                console.log(id);
+                $.ajax({
                     url: "mohdareendata/" + id,
                     dataType: "json",
                     success: function (html) {
@@ -460,17 +460,19 @@
         });
 
         </script>
-    <script src="{{url('/plugins/bootstrap-modal/js/bootstrap-modal.js') }}" type="text/javascript"></script>
-    <script src="{{url('/plugins/bootstrap-modal/js/bootstrap-modalmanager.js') }}" type="text/javascript"></script>
-    <script src="{{url('/js/ui-modals.js') }}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{url('/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{url('/js/table-data.js') }}"></script>
-    <script src="{{url('/plugins/DataTables/media/js/DT_bootstrap.js') }}"></script>
-    <script src="{{url('/plugins/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="<?php echo e(url('/plugins/bootstrap-modal/js/bootstrap-modal.js')); ?>" type="text/javascript"></script>
+    <script src="<?php echo e(url('/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')); ?>" type="text/javascript"></script>
+    <script src="<?php echo e(url('/js/ui-modals.js')); ?>" type="text/javascript"></script>
+    <script type="text/javascript" src="<?php echo e(url('/plugins/select2/select2.min.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(url('/js/table-data.js')); ?>"></script>
+    <script src="<?php echo e(url('/plugins/DataTables/media/js/DT_bootstrap.js')); ?>"></script>
+    <script src="<?php echo e(url('/plugins/DataTables/media/js/jquery.dataTables.min.js')); ?>"></script>
 
-@endsection
-@section('scriptDocument')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scriptDocument'); ?>
     UIModals.init();
     TableData.init();
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('welcome', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/elnagar/php projects/temporary-E-solution-Lawyer-App-/resources/views/home.blade.php ENDPATH**/ ?>
